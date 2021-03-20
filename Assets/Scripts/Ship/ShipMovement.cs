@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShipMovement : MonoBehaviour {
 
-    public static float rotationSpeed = 80f;
+    public static float rotationSpeed = 70f;
     public static float speed = 1.8f;
 
     // TODO: make this private

@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b25d6a137327841964e16c1d14347b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noise: 0.5
+  tickRate: 1250
+  marker: {fileID: 6476933426940971890, guid: 379c6c025f73d5a4ebb56183c04f6b32, type: 3}
 --- !u!1 &1554522285151001985
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +289,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!114 &1877222180
@@ -315,5 +318,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf7d63612fdf14da2649709238f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionSize: 10
+  visionSize: 11.5
   visionSensor: {fileID: 5064784154809942269}
