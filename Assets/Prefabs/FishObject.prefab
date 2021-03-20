@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1621191690}
   - component: {fileID: 1621191689}
   - component: {fileID: 1621191688}
-  - component: {fileID: 1621191687}
+  - component: {fileID: 8259409228779351086}
   m_Layer: 8
   m_Name: Vision
   m_TagString: Untagged
@@ -122,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1621191687
+--- !u!114 &8259409228779351086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1621191685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb53a458207f123459b8a41a6be0831a, type: 3}
+  m_Script: {fileID: 11500000, guid: 87b25d6a137327841964e16c1d14347b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2394886173827647393
@@ -295,4 +295,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionSize: 7
-  visionSensor: {fileID: 1621191687}
+  visionSensor: {fileID: 8259409228779351086}

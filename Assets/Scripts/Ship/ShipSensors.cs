@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShipSensors : MonoBehaviour {
 
     public float visionSize = 8f;
-    public ProximityShipSensor visionSensor;
+    public ProximitySensor visionSensor;
 
     void Start() {
         visionSensor.transform.localScale = new Vector3(visionSize, visionSize, 1f);

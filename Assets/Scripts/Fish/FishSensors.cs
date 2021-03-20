@@ -6,7 +6,7 @@ public class FishSensors : MonoBehaviour
 {
 
     public float visionSize = 8f;
-    public ProximityFishSensor visionSensor;
+    public ProximitySensor visionSensor;
 
     void Start()
     {

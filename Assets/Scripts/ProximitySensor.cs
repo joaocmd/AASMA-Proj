@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProximityShipSensor : MonoBehaviour
+public class ProximitySensor : MonoBehaviour
 {
 
     public Dictionary<string, Vector3> Seen = new Dictionary<string, Vector3>();
