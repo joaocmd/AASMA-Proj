@@ -5,11 +5,11 @@ using UnityEngine;
 public class FishSensors : MonoBehaviour
 {
 
-    public float visionSize = 8f;
+    public static float Size = 8f;
     public ProximitySensor visionSensor;
 
-    void Start()
+    void Update()
     {
-        visionSensor.transform.localScale = new Vector3(visionSize, visionSize, 1f);
+        visionSensor.transform.localScale = new Vector3(Size, Size, 1f);
     }
 }

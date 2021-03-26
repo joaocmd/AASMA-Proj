@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ShipSensors : MonoBehaviour {
 
-    public float visionSize = 8f;
+    public static float Size = 8f;
     public ProximitySensor visionSensor;
 
-    void Start() {
-        visionSensor.transform.localScale = new Vector3(visionSize, visionSize, 1f);
+    void Update() {
+        visionSensor.transform.localScale = new Vector3(Size, Size, 1f);
     }
 }
