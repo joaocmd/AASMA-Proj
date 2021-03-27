@@ -152,8 +152,8 @@ GameObject:
   - component: {fileID: 2132247014}
   - component: {fileID: 7268955313877012583}
   m_Layer: 9
-  m_Name: FishObject
-  m_TagString: Untagged
+  m_Name: Fish
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,7 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78065563e8fd28d409598e4ea5a835b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionSize: 6.3
   visionSensor: {fileID: 8259409228779351086}
 --- !u!70 &7268955313877012583
 CapsuleCollider2D:
