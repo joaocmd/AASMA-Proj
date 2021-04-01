@@ -6,8 +6,10 @@ public class ShipSensors : MonoBehaviour {
 
     public static float Size = 8f;
     public ProximitySensor visionSensor;
+    public Transform visionVisualizer;
 
     void Update() {
-        visionSensor.transform.localScale = new Vector3(Size, Size, 1f);
+        visionVisualizer.localScale = new Vector3(Size, Size, 1f);
+        visionSensor.Range = Size;
     }
 }

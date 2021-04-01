@@ -14,84 +14,60 @@ public class ProximitySensor : MonoBehaviour
     public int tickRate = 500;
     public GameObject marker;
     public Dictionary<string, GameObject> markers = new Dictionary<string, GameObject>();
-    private Dictionary<string, GameObject> _seen = new Dictionary<string, GameObject>();
 
     private DateTime lastTick;
 
+    public float Range { get { return effectiveRange * 2 - 0.5f; } set { effectiveRange = value / 2 + 0.5f; } }
+    private float effectiveRange;
+
     void Awake()
     {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), transform.parent.GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
         lastTick = DateTime.Now;
-    }
-
-    void OnTriggerExit2D(Collider2D col)
-    {
-        var name = col.gameObject.name;
-        _seen.Remove(name);
-        switch (col.gameObject.tag)
-        {
-            case "Fish":
-                SeenShips.Remove(name);
-                break;
-            case "Harpoon":
-                SeenHarpoons.Remove(name);
-                break;
-            case "Ship":
-                SeenShips.Remove(name);
-                break;
-            default:
-                break;
-        }
-
-        GameObject.Destroy(markers[name]);
-        markers.Remove(name);
     }
 
     void Update()
     {
+        SeenShips.Clear();
+        var ships = EnvironmentManager.ActiveShips;
         if ((DateTime.Now - lastTick).TotalMilliseconds >= tickRate)
         {
-            foreach (var i in _seen)
-            {
-                var name = i.Key;
-                var obj = i.Value;
-                var marker = markers[name];
-                var pos = new Vector3(
-                    obj.transform.position.x + UnityEngine.Random.Range(-noise, noise),
-                    obj.transform.position.y + UnityEngine.Random.Range(-noise, noise),
-                    obj.transform.position.z);
-
-                markers[name].transform.position = pos;
-
-                switch (obj.tag)
-                {
-                    case "Fish":
-                        SeenShips[name] = pos;
-                        break;
-                    case "Harpoon":
-                        SeenHarpoons[name] = pos;
-                        break;
-                    case "Ship":
-                        SeenShips[name] = pos;
-                        break;
-                    default:
-                        break;
-                }
-
-                Debug.Log($"{name}-{pos}");
-            }
-
+            UpdateOne(EnvironmentManager.ActiveShips, SeenShips);
+            UpdateOne(EnvironmentManager.ActiveFishes, SeenFishes);
             lastTick = DateTime.Now;
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void UpdateOne(List<GameObject> target, Dictionary<string, Vector3> storage)
     {
-        var obj = col.gameObject;
-        var name = obj.name;
+        storage.Clear();
+        foreach (GameObject obj in target)
+        {
+            if (obj == gameObject)
+            {
+                continue;
+            }
 
-        _seen[name] = obj;
-        markers[name] = Instantiate(marker, obj.transform.position, Quaternion.identity);
+            if (Vector2.Distance(transform.position, obj.transform.position) < Range / 2f)
+            {
+                Debug.Log($"{obj.transform.name} is in range");
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, obj.transform.position - transform.position);
+                Debug.DrawLine(transform.position, obj.transform.position, Color.green, 0.1f);
+                Debug.Log($"{hit.transform.name} was hit");
+                if (hit.collider.gameObject == obj)
+                {
+                    // no obstructions and in range
+                    var pos = new Vector3(
+                        obj.transform.position.x + UnityEngine.Random.Range(-noise, noise),
+                        obj.transform.position.y + UnityEngine.Random.Range(-noise, noise),
+                        obj.transform.position.z);
+
+                    storage[obj.gameObject.name] = pos;
+                    continue;
+                }
+            }
+            SeenShips.Remove(obj.gameObject.name);
+        }
     }
 
     private Vector3 positionWithNoise(GameObject obj)
