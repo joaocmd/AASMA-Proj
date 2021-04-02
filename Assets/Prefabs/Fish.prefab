@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7268955313877012583}
   - component: {fileID: 975449803164837274}
   - component: {fileID: 4740885171875324737}
+  - component: {fileID: 5688127333283474894}
   m_Layer: 9
   m_Name: Fish
   m_TagString: Fish
@@ -236,7 +237,6 @@ MonoBehaviour:
   noise: 0.5
   tickRate: 500
   marker: {fileID: 6476933426940971890, guid: 379c6c025f73d5a4ebb56183c04f6b32, type: 3}
-  Range: 0
 --- !u!114 &4740885171875324737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +251,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionSensor: {fileID: 975449803164837274}
   visionVisualizer: {fileID: 1621191686}
+  wallSensors: {fileID: 5688127333283474894}
+--- !u!114 &5688127333283474894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394886173827647393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33bea1a710c55104ba00d7c871971a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

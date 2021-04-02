@@ -7,6 +7,7 @@ TagManager:
   - Ship
   - Harpoon
   - Fish
+  - Island
   layers:
   - Default
   - TransparentFX

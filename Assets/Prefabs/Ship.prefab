@@ -236,7 +236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554522285151001985}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.035, y: 0.37, z: 0}
+  m_LocalPosition: {x: 0.035, y: 0.37, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1554522285546641032}
@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 3561203480019326354}
   - component: {fileID: 4586115971830372479}
   - component: {fileID: 8260884100756304094}
+  - component: {fileID: 5470205718557913721}
   m_Layer: 7
   m_Name: Ship
   m_TagString: Ship
@@ -412,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionSensor: {fileID: 3561203480019326354}
+  wallSensors: {fileID: 5470205718557913721}
   visionVisualizer: {fileID: 2075554862}
 --- !u!114 &8260884100756304094
 MonoBehaviour:
@@ -427,6 +429,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   healthBar: {fileID: 4958678215082341531}
+--- !u!114 &5470205718557913721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554522285546641033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33bea1a710c55104ba00d7c871971a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6560151444363042032
 GameObject:
   m_ObjectHideFlags: 0
