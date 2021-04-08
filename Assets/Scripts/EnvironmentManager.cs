@@ -86,4 +86,15 @@ public class EnvironmentManager : MonoBehaviour
             list[n] = value;
         }
     }
+
+    public void RemoveFish(GameObject fish)
+    {
+        ActiveFishes.Remove(fish);
+    }
+
+    public void RemoveShip(GameObject ship)
+    {
+        ActiveShips.Remove(ship);
+
+    }
 }

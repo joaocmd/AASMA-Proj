@@ -23,4 +23,18 @@ public class Harpoon : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Fish")
+        {
+            GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveFish(other.gameObject);
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Island")
+        {
+            Destroy(gameObject);
+        }
+
+    }
 }
