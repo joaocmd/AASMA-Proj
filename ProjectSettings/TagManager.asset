@@ -8,6 +8,7 @@ TagManager:
   - Harpoon
   - Fish
   - Island
+  - GameManager
   layers:
   - Default
   - TransparentFX
