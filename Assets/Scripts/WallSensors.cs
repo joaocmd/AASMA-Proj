@@ -15,17 +15,17 @@ public class WallSensors : MonoBehaviour
     void Update()
     {
         Hits.Clear();
-        for (int i = 0; i < raysIncr.Length; i ++)
+        for (int i = 0; i < raysIncr.Length; i++)
         {
             Vector3 dir = Quaternion.Euler(0, 0, raysIncr[i]) * transform.up;
             Debug.DrawRay(transform.position, dir * effectiveRange, Color.red, 0.1f);
             // 1 is the default layer
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, effectiveRange, 1);
-            Hits.Add(hit);
 
             if (hit.collider != null)
             {
-                Debug.Log($"{hit.collider.transform.name}-{hit.point}");
+                Hits.Add(hit);
+                // Debug.Log($"{hit.collider.transform.name}-{hit.point}");
             }
 
         }

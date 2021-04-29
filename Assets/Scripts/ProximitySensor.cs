@@ -50,10 +50,10 @@ public class ProximitySensor : MonoBehaviour
 
             if (Vector2.Distance(transform.position, obj.transform.position) < Range / 2f)
             {
-                Debug.Log($"{obj.transform.name} is in range");
+                // Debug.Log($"{obj.transform.name} is in range");
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, obj.transform.position - transform.position);
-                Debug.DrawLine(transform.position, obj.transform.position, Color.green, 0.1f);
-                Debug.Log($"{hit.transform.name} was hit");
+                // Debug.DrawLine(transform.position, obj.transform.position, Color.green, 0.1f);
+                // Debug.Log($"{hit.transform.name} was hit");
                 if (hit.collider.gameObject == obj)
                 {
                     // no obstructions and in range
