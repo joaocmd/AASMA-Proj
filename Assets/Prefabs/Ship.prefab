@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 4586115971830372479}
   - component: {fileID: 8260884100756304094}
   - component: {fileID: 5470205718557913721}
+  - component: {fileID: 6207156684615408478}
   m_Layer: 7
   m_Name: Ship
   m_TagString: Ship
@@ -441,6 +442,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bea1a710c55104ba00d7c871971a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6207156684615408478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554522285546641033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612a7c13c983dcb4086df99cb20a5cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1877222180}
+  shipSensors: {fileID: 4586115971830372479}
+  harpoon: {fileID: 274472383}
 --- !u!1 &6560151444363042032
 GameObject:
   m_ObjectHideFlags: 0

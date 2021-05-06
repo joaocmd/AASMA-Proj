@@ -24,7 +24,7 @@ public class HarpoonLauncher : MonoBehaviour
         }
     }
 
-    void Fire() {
+    public void Fire() {
         if (Timer <= 0f) {
             GameObject obj = Instantiate(harpoonPrefab, transform.position, transform.rotation);
             sprite.enabled = false;
