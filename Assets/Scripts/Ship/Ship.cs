@@ -95,7 +95,6 @@ public class Ship : MonoBehaviour
 
         var hitVector = hit - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
-        Debug.Log(angle);
 
         if (angle > 0) 
         {
@@ -104,11 +103,16 @@ public class Ship : MonoBehaviour
         else if (Mathf.Abs(angle) < 15) 
         {
             movement.Helm = 0f;
-            harpoon.Fire();
         }
         else 
         {
             movement.Helm = -0.5f;
+        }
+
+        if (Vector2.Distance(hit, transform.position) < Harpoon.Range) 
+        {
+            harpoon.LookAt(hit);
+            harpoon.Fire();   
         }
     }
 }

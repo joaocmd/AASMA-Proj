@@ -7,7 +7,6 @@ public class HarpoonLauncher : MonoBehaviour
 
     public static float Cooldown = 3f;
     public SpriteRenderer sprite;
-
     public GameObject harpoonPrefab;
     public GameObject parent;
 
@@ -16,6 +15,7 @@ public class HarpoonLauncher : MonoBehaviour
     void Update() {
         Timer -= Time.deltaTime;
         if (Timer <= 0f && !sprite.enabled) {
+            transform.right = parent.transform.up;
             sprite.enabled = true;
         }
 
@@ -34,7 +34,7 @@ public class HarpoonLauncher : MonoBehaviour
         }
     }
 
-    void LookAt(Vector3 point) {
-
+    public void LookAt(Vector3 point) {
+        transform.right = point - transform.position;
     }
 }
