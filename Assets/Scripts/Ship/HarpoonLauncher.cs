@@ -33,10 +33,7 @@ public class HarpoonLauncher : MonoBehaviour
         if (Timer <= 0f)
         {
             // Insert noise in the harpoon's direction
-            transform.right = new Vector3(
-                        transform.right.x + UnityEngine.Random.Range(-noise, noise),
-                        transform.right.y + UnityEngine.Random.Range(-noise, noise),
-                        transform.right.z);
+            transform.rotation = Quaternion.Euler(0, 0, Random.Range(-noise, noise)) * transform.rotation;
 
             GameObject obj = Instantiate(harpoonPrefab, transform.position, transform.rotation);
             sprite.enabled = false;
