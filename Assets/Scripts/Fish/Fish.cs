@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System;
 using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-
+    private EnvironmentManager environment;
     public FishMovement movement;
     public FishSensors sensors;
     private WallSensors wallSensors;
@@ -17,6 +13,7 @@ public class Fish : MonoBehaviour
     {
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
+        environment = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnvironmentManager>();
     }
 
     // Update is called once per frame
@@ -32,11 +29,12 @@ public class Fish : MonoBehaviour
         var closestShip = GetClosestShip();
         if (closestShip != null)
         {
+            environment.NotifyFish(gameObject);
             DodgeShip(closestShip.GetValueOrDefault());
             return;
         }
 
-        MoveForward();
+        Explore();
     }
 
 
@@ -76,14 +74,21 @@ public class Fish : MonoBehaviour
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
         var hitVector = hit.point - position;
-        var angle = Vector2.Angle(transform.up, hitVector);
-        if (angle > 0)
+        // Debug.Log($"Hit Vector: {hitVector}");
+        var angle = -Vector2.SignedAngle(transform.up, hitVector);
+        if (wallSensors.HitPositions.Contains(WallPosition.LEFT)
+            && wallSensors.HitPositions.Contains(WallPosition.RIGHT)
+            && !wallSensors.HitPositions.Contains(WallPosition.MIDDLE))
         {
-            movement.Rotation += 90;
+            // keep going forward
+        }
+        else if (Random.value < 0.99)
+        {
+            movement.Rotation += Mathf.Sign(angle) * 2f;
         }
         else
         {
-            movement.Rotation -= 90;
+            movement.Rotation += Mathf.Sign(angle) * 90f;
         }
     }
 
@@ -91,12 +96,27 @@ public class Fish : MonoBehaviour
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
-        var hitVector = hit - position;
-        movement.Rotation += 180;
+        var hitVector = position - hit;
+        movement.Rotation = Vector2.Angle(hitVector, Vector2.up);
     }
 
-    void MoveForward()
+    void Explore()
     {
-        movement.Speed = 1;
+        if (Random.value < 0.95)
+        {
+            movement.Speed = 1;
+        }
+        else
+        {
+            movement.Rotation += Random.Range(-5, 5);
+        }
+    }
+
+    public void NotifyFish(Vector2 position)
+    {
+        if (Vector2.Distance(transform.position, position) < 12.5f)
+        {
+            DodgeShip(position);
+        }
     }
 }

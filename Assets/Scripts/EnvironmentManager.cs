@@ -97,4 +97,13 @@ public class EnvironmentManager : MonoBehaviour
         ActiveShips.Remove(ship);
 
     }
+
+    public void NotifyFish(GameObject fish) {
+       foreach (GameObject other in ActiveFishes) {
+           if (Object.ReferenceEquals(fish, other)) {
+               continue;
+           }
+           other.GetComponent<Fish>().NotifyFish(fish.transform.position);
+       }
+    }
 }
