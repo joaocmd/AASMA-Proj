@@ -47,6 +47,7 @@ MonoBehaviour:
   sprite: {fileID: 1028875264}
   harpoonPrefab: {fileID: 2417696528126964506, guid: 8e430002b951c724c99c5d4311fa80ce, type: 3}
   parent: {fileID: 1554522285546641033}
+  noise: 2
 --- !u!1 &1028875262
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour, IFish
 {
-    private EnvironmentManager environment;
     public FishMovement movement;
     public FishSensors sensors;
     private WallSensors wallSensors;
@@ -13,7 +12,6 @@ public class Fish : MonoBehaviour, IFish
     {
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
-        environment = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnvironmentManager>();
     }
 
     // Update is called once per frame
@@ -29,7 +27,6 @@ public class Fish : MonoBehaviour, IFish
         var closestShip = GetClosestShip();
         if (closestShip != null)
         {
-            environment.NotifyFish(gameObject);
             DodgeShip(closestShip.GetValueOrDefault());
             return;
         }

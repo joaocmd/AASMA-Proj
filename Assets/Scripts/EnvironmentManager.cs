@@ -112,4 +112,19 @@ public class EnvironmentManager : MonoBehaviour
             other.GetComponent<IFish>().OnNotifyFish(fish.transform.position);
         }
     }
+
+    public void NotifyKill(string key)
+    {
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().OnNotifyKill(key));
+    }
+
+    public void UpdateShip(GameObject gameObject, Intention intention)
+    {
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().UpdateShip(gameObject, intention));
+    }
+
+    public void UpdateWhalePosition(string key, Vector2 shipPos, Vector2 whalePos)
+    {
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().UpdateWhalePosition(key, shipPos, whalePos));
+    }
 }

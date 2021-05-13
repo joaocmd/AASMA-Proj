@@ -1,9 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public enum Desire { follow, explore }
 
 public class ShipHybrid : MonoBehaviour, IShip
 {
+    private EnvironmentManager environment;
+
     // actuators
     public ShipMovement movement;
     public HarpoonLauncher harpoon;
@@ -15,23 +19,28 @@ public class ShipHybrid : MonoBehaviour, IShip
 
     // state
     private Intention intention = null;
+    private Dictionary<GameObject, Intention> otherIntentions = new Dictionary<GameObject, Intention>();
 
     void Start()
     {
         movement.Throttle = 1f;
         proximitySensor = shipSensors.visionSensor;
         wallSensors = shipSensors.wallSensors;
+        environment = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnvironmentManager>();
+        // bootstrap intention and tell other ships I'm here
+        TryFindWhale(true);
     }
 
     void Update()
     {
         // hybrid vertical layer architecture, start with reacting to walls/ships
+
         if (!(ReactiveDecision() || Deliberate()))
         {
+            // never happens but condition needs to be attributed or used
             movement.Helm = 0f;
             movement.Throttle = 1f;
         }
-
     }
 
     // Used to dodge walls and shoot whales
@@ -76,23 +85,15 @@ public class ShipHybrid : MonoBehaviour, IShip
     // Used to decide which whale to follow
     bool Deliberate()
     {
-        if (intention == null)
-        // if no current intention, choose closet whale as a target
+        if (intention.Desire == Desire.follow)
         {
-            TryFindWhale(true);
+            FollowWhale();
         }
-        else
+        else if (intention.Desire == Desire.explore)
         {
-            if (intention.Desire == Desire.follow)
-            {
-                FollowWhale();
-            }
-            else if (intention.Desire == Desire.explore)
-            {
-                TryFindWhale(false);
-            }
-            MoveTowards(intention.To);
+            TryFindWhale(false);
         }
+        MoveTowards(intention.To);
         return true;
     }
 
@@ -105,6 +106,7 @@ public class ShipHybrid : MonoBehaviour, IShip
             {
                 intention.To = whale.Value;
                 foundWhale = true;
+                environment.UpdateWhalePosition(whale.Key, transform.position, whale.Value);
                 break;
             }
         }
@@ -112,11 +114,9 @@ public class ShipHybrid : MonoBehaviour, IShip
         if (!foundWhale && ReachedGoal())
         {
             // keep moving forward, might find it again
-            Debug.Log($"Reached {intention.To}");
             Vector2 newGoal = transform.position + transform.up.normalized * 30f;
             newGoal = new Vector2(Mathf.Clamp(newGoal.x, -17, 17), Mathf.Clamp(newGoal.y, -17, 17));
-            intention = new Intention(Desire.explore, null, newGoal, false);
-            Debug.Log($"Going to {intention.To}");
+            ChangeIntention(new Intention(Desire.explore, null, newGoal, false));
         }
     }
 
@@ -126,20 +126,20 @@ public class ShipHybrid : MonoBehaviour, IShip
         if (closestWhale != null)
         {
             var whale = closestWhale.GetValueOrDefault();
-            intention = new Intention(Desire.follow, whale.Item1, whale.Item2, false);
+            ChangeIntention(new Intention(Desire.follow, whale.Item1, whale.Item2, false));
         }
         else
         {
             if (changeGoal || Random.value < 0.0001)
             {
                 // TODO: use map bounds insted of hardcoded 34 - 17
-                Debug.Log("Changing Exploration " + Random.value);
-                intention = new Intention(Desire.explore, null, new Vector2(Random.value * 34 - 17, Random.value * 34 - 17), false);
+                // Debug.Log("Changing Exploration " + Random.value);
+                ChangeIntention(new Intention(Desire.explore, null, new Vector2(Random.value * 34 - 17, Random.value * 34 - 17), false));
             }
             else if (ReachedGoal())
             {
-                Debug.Log("Reached Goal" + Random.value);
-                intention = new Intention(Desire.explore, null, new Vector2(Random.value * 34 - 17, Random.value * 34 - 17), false);
+                // Debug.Log("Reached Goal" + Random.value);
+                ChangeIntention(new Intention(Desire.explore, null, new Vector2(Random.value * 34 - 17, Random.value * 34 - 17), false));
             }
         }
     }
@@ -210,6 +210,12 @@ public class ShipHybrid : MonoBehaviour, IShip
         return Vector2.Distance(myPosition, intention.To) < 2.5f;
     }
 
+    private void ChangeIntention(Intention intention)
+    {
+        environment.UpdateShip(gameObject, intention);
+        this.intention = intention;
+    }
+
     public void OnKilled(string key)
     {
         if (intention != null && intention.Key == key)
@@ -217,9 +223,61 @@ public class ShipHybrid : MonoBehaviour, IShip
             TryFindWhale(true);
         }
     }
+
+    public void OnNotifyKill(string key)
+    {
+        OnKilled(key);
+    }
+
+    public void UpdateShip(GameObject ship, Intention intention)
+    {
+        otherIntentions[ship] = intention;
+    }
+
+    public void RemoveShip(GameObject ship)
+    {
+        otherIntentions.Remove(ship);
+    }
+
+    public void UpdateWhalePosition(string key, Vector2 shipPos, Vector2 whalePos)
+    {
+        // if that's my intention, update it
+        if (intention.Key == key)
+        {
+            intention.To = whalePos;
+            return;
+        }
+
+        if (otherIntentions.Values.Where(i => i.Key == key).Count() >= 2)
+        {
+            // two ships already with that intention, let them be
+            return;
+        }
+
+        GameObject bestCandidate = null;
+        float bestScore = float.MinValue;
+        Vector2 shipDistanceVec = shipPos - whalePos;
+        foreach (var candidate in otherIntentions.Where(s => s.Value.Desire != Desire.follow))
+        {
+            var candidatePos = new Vector2(candidate.Key.transform.position.x, candidate.Key.transform.position.y);
+            // the closer the better (1/distance), the more on the opposite side (angle ~ 180 the better)
+            float score = Vector2.Angle(candidatePos - whalePos, shipDistanceVec) / Vector2.Distance(candidatePos, whalePos);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestCandidate = candidate.Key;
+            }
+        }
+
+        // if I am the best candidate, broadcast that to everyone
+        if (bestCandidate == gameObject)
+        {
+            ChangeIntention(new Intention(Desire.follow, key, whalePos, true));
+        }
+    }
 }
 
-class Intention
+public class Intention
 {
     public Desire Desire;
     public string Key;

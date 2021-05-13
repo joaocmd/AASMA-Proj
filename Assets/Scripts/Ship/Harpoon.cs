@@ -18,7 +18,7 @@ public class Harpoon : MonoBehaviour
 
     public void Update()
     {
-        if (Vector3.Distance(transform.position, start) >= Range)
+        if (Vector3.Distance(transform.position, start) >= Range - 1f)
         {
             Destroy(gameObject);
         }

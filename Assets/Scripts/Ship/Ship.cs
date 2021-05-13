@@ -102,8 +102,10 @@ public class Ship : MonoBehaviour, IShip
         }
     }
 
-    public void OnKilled(string _)
-    {
-        // ignored
-    }
+    // ignored communication methods
+    public void OnKilled(string _) { }
+    public void OnNotifyKill(string _) { }
+    public void UpdateShip(GameObject gameObject, Intention intention) { }
+    public void RemoveShip(GameObject gameObject) { }
+    public void UpdateWhalePosition(string key, Vector2 shipPos, Vector2 whalePos) { }
 }
