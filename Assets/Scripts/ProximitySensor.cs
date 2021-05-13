@@ -8,7 +8,7 @@ public class ProximitySensor : MonoBehaviour
     // public property for the outside
     public Dictionary<string, Vector3> SeenShips = new Dictionary<string, Vector3>();
     public Dictionary<string, Vector3> SeenHarpoons = new Dictionary<string, Vector3>();
-    public Dictionary<string, Vector3> SeenFishes = new Dictionary<string, Vector3>();
+    public Dictionary<string, Vector3> SeenWhales = new Dictionary<string, Vector3>();
 
     public float noise = 0.5f;
     public int tickRate = 300;
@@ -32,7 +32,7 @@ public class ProximitySensor : MonoBehaviour
         if ((DateTime.Now - lastTick).TotalMilliseconds >= tickRate)
         {
             UpdateOne(EnvironmentManager.ActiveShips, SeenShips);
-            UpdateOne(EnvironmentManager.ActiveFishes, SeenFishes);
+            UpdateOne(EnvironmentManager.ActiveFishes, SeenWhales);
             lastTick = DateTime.Now;
         }
     }

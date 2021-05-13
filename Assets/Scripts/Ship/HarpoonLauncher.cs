@@ -10,7 +10,7 @@ public class HarpoonLauncher : MonoBehaviour
     public GameObject harpoonPrefab;
     public GameObject parent;
     public IShip parentScript;
-    public float noise = 4f;
+    public float noise = 2f;
 
     public float Timer { get; private set; } = 0f;
 
@@ -49,8 +49,8 @@ public class HarpoonLauncher : MonoBehaviour
         }
     }
 
-    public void LookAt(Vector3 point)
-    {
-        transform.right = point - transform.position;
-    }
+    // public void LookAt(Vector3 point)
+    // {
+    //     transform.right = point - transform.position;
+    // }
 }

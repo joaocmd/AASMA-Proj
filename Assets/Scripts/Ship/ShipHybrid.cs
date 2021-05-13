@@ -34,20 +34,34 @@ public class ShipHybrid : MonoBehaviour, IShip
 
     }
 
-    // Used to dodge walls
+    // Used to dodge walls and shoot whales
     bool ReactiveDecision()
     {
         // Always allow firing
-        var closestWhale = GetClosesWhale();
-        if (closestWhale != null)
+        foreach (var whale in proximitySensor.SeenWhales)
         {
-            var closestWhaleValue = closestWhale.GetValueOrDefault();
-            if (Vector2.Distance(closestWhaleValue.Item2, transform.position) < Harpoon.Range)
+            var distance = Vector2.Distance(whale.Value, transform.position);
+            if (distance < Harpoon.Range)
             {
-                harpoon.LookAt(closestWhaleValue.Item2);
-                harpoon.Fire();
+                var angle = Vector2.SignedAngle(transform.up, whale.Value - transform.position);
+                if (angle < 3f)
+                {
+                    harpoon.Fire();
+                    break;
+                }
             }
         }
+
+        // var closestWhale = GetClosesWhale();
+        // if (closestWhale != null)
+        // {
+        //     var closestWhaleValue = closestWhale.GetValueOrDefault();
+        //     if (Vector2.Distance(closestWhaleValue.Item2, transform.position) < Harpoon.Range)
+        //     {
+        //         harpoon.LookAt(closestWhaleValue.Item2);
+        //         harpoon.Fire();
+        //     }
+        // }
 
         var closest = GetClosestWall();
         if (closest != null)
@@ -85,7 +99,7 @@ public class ShipHybrid : MonoBehaviour, IShip
     void FollowWhale()
     {
         bool foundWhale = false;
-        foreach (var whale in proximitySensor.SeenFishes)
+        foreach (var whale in proximitySensor.SeenWhales)
         {
             if (whale.Key == intention.Key)
             {
@@ -99,7 +113,9 @@ public class ShipHybrid : MonoBehaviour, IShip
         {
             // keep moving forward, might find it again
             Debug.Log($"Reached {intention.To}");
-            intention = new Intention(Desire.explore, null, transform.position + transform.up.normalized * 5f, false);
+            Vector2 newGoal = transform.position + transform.up.normalized * 30f;
+            newGoal = new Vector2(Mathf.Clamp(newGoal.x, -17, 17), Mathf.Clamp(newGoal.y, -17, 17));
+            intention = new Intention(Desire.explore, null, newGoal, false);
             Debug.Log($"Going to {intention.To}");
         }
     }
@@ -132,7 +148,7 @@ public class ShipHybrid : MonoBehaviour, IShip
     {
         (string, Vector2)? closest = null;
         float minDistance = float.MaxValue;
-        foreach (var whale in proximitySensor.SeenFishes)
+        foreach (var whale in proximitySensor.SeenWhales)
         {
             var distance = Vector2.Distance(whale.Value, transform.position);
             if (distance < minDistance)
@@ -178,7 +194,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         var distanceVector = goal - myPosition;
         var angle = Vector2.SignedAngle(transform.up, distanceVector);
 
-        if (Mathf.Abs(angle) < 15)
+        if (Mathf.Abs(angle) < 10)
         {
             movement.Helm = 0f;
         }

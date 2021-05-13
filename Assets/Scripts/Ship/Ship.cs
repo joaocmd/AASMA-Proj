@@ -8,7 +8,6 @@ public class Ship : MonoBehaviour, IShip
     private ProximitySensor proximitySensor;
     private WallSensors wallSensors;
 
-    // Start is called before the first frame update
     void Start()
     {
         movement.Throttle = 1f;
@@ -16,7 +15,6 @@ public class Ship : MonoBehaviour, IShip
         wallSensors = shipSensors.wallSensors;
     }
 
-    // Update is called once per frame
     void Update()
     {
         var closest = GetClosestWall();
@@ -41,7 +39,7 @@ public class Ship : MonoBehaviour, IShip
     {
         Vector2? closest = null;
         float minDistance = float.MaxValue;
-        foreach (var fish in proximitySensor.SeenFishes.Values)
+        foreach (var fish in proximitySensor.SeenWhales.Values)
         {
             var distance = Vector2.Distance(fish, transform.position);
             if (distance < minDistance)
@@ -87,7 +85,7 @@ public class Ship : MonoBehaviour, IShip
         var hitVector = hit - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
 
-        if (Mathf.Abs(angle) < 15)
+        if (Mathf.Abs(angle) < 10)
         {
             movement.Helm = 0f;
         }
@@ -96,9 +94,10 @@ public class Ship : MonoBehaviour, IShip
             movement.Helm = Mathf.Sign(angle) * 0.5f;
         }
 
-        if (Vector2.Distance(hit, transform.position) < Harpoon.Range)
+        if (Vector2.Distance(hit, transform.position) < Harpoon.Range
+            && Mathf.Abs(angle) < 3f)
         {
-            harpoon.LookAt(hit);
+            // harpoon.LookAt(hit);
             harpoon.Fire();
         }
     }
