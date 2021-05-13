@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Harpoon : MonoBehaviour
 {
-    public GameObject Parent;
+    public IShip Parent;
 
     public static float Speed = 8f;
     public static float Range = 4.5f;
@@ -29,6 +29,7 @@ public class Harpoon : MonoBehaviour
         if (other.gameObject.tag == "Fish")
         {
             GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveFish(other.gameObject);
+            Parent.OnKilled(other.gameObject.name);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Island")

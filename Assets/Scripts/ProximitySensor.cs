@@ -11,7 +11,7 @@ public class ProximitySensor : MonoBehaviour
     public Dictionary<string, Vector3> SeenFishes = new Dictionary<string, Vector3>();
 
     public float noise = 0.5f;
-    public int tickRate = 500;
+    public int tickRate = 300;
     public GameObject marker;
     public Dictionary<string, GameObject> markers = new Dictionary<string, GameObject>();
 
@@ -28,7 +28,6 @@ public class ProximitySensor : MonoBehaviour
 
     void Update()
     {
-        SeenShips.Clear();
         var ships = EnvironmentManager.ActiveShips;
         if ((DateTime.Now - lastTick).TotalMilliseconds >= tickRate)
         {
@@ -52,7 +51,7 @@ public class ProximitySensor : MonoBehaviour
             {
                 // Debug.Log($"{obj.transform.name} is in range");
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, obj.transform.position - transform.position);
-                // Debug.DrawLine(transform.position, obj.transform.position, Color.green, 0.1f);
+                Debug.DrawLine(transform.position, obj.transform.position, Color.green, 0.1f);
                 // Debug.Log($"{hit.transform.name} was hit");
                 if (hit.collider.gameObject == obj)
                 {

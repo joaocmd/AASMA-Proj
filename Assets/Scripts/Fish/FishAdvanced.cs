@@ -1,12 +1,15 @@
 using UnityEngine;
+using System.Collections;
 
-public class Fish : MonoBehaviour, IFish
+public class FishAdvanced : MonoBehaviour, IFish
 {
     private EnvironmentManager environment;
     public FishMovement movement;
     public FishSensors sensors;
     private WallSensors wallSensors;
     private ProximitySensor vision;
+
+    private bool reactToShip = true;
 
     // Start is called before the first frame update
     void Start()
@@ -19,18 +22,20 @@ public class Fish : MonoBehaviour, IFish
     // Update is called once per frame
     void Update()
     {
+
+        var closestShip = GetClosestShip();
+        if (closestShip != null && reactToShip)
+        {
+            environment.NotifyFish(gameObject);
+            StartCoroutine(DodgeShip(closestShip.GetValueOrDefault()));
+            reactToShip = false;
+            return;
+        }
+
         var closest = GetClosestWall();
         if (closest != null)
         {
             DodgeWall(closest.GetValueOrDefault());
-            return;
-        }
-
-        var closestShip = GetClosestShip();
-        if (closestShip != null)
-        {
-            environment.NotifyFish(gameObject);
-            DodgeShip(closestShip.GetValueOrDefault());
             return;
         }
 
@@ -92,12 +97,40 @@ public class Fish : MonoBehaviour, IFish
         }
     }
 
-    void DodgeShip(Vector2 hit)
+    IEnumerator DodgeShip(Vector2 hit)
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
-        var hitVector = position - hit;
-        movement.Rotation = Vector2.Angle(hitVector, Vector2.up);
+        var distanceVector = (position - hit).normalized;
+        movement.Rotation = Vector2.Angle(distanceVector, Vector2.up);
+
+        int incr = 15;
+        // try to decide where to dodge, prefer dodging straight out, if not possible then to 15 degrees
+        // off straight out, then 30, etc...
+        for (int i = 0; incr * i < 170; i++)
+        {
+            Vector3 left = Quaternion.Euler(0, 0, -(incr * i)) * distanceVector;
+            Vector3 right = Quaternion.Euler(0, 0, (incr * i)) * distanceVector;
+
+            // 1 is the default layer
+            Debug.DrawRay(transform.position, left * wallSensors.EffectiveRange, Color.magenta, 0.02f);
+            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, left, wallSensors.EffectiveRange, 1);
+            if (raycastHit.collider != null)
+            {
+                movement.Rotation = Vector2.Angle(left, Vector2.up);
+            }
+
+            // 1 is the default layer
+            Debug.DrawRay(transform.position, right * wallSensors.EffectiveRange, Color.magenta, 0.02f);
+            raycastHit = Physics2D.Raycast(transform.position, right, wallSensors.EffectiveRange, 1);
+            if (raycastHit.collider != null)
+            {
+                movement.Rotation = Vector2.Angle(right, Vector2.up);
+            }
+        }
+
+        yield return new WaitForSeconds(2.5f);
+        reactToShip = true;
     }
 
     void Explore()
@@ -114,6 +147,9 @@ public class Fish : MonoBehaviour, IFish
 
     void IFish.OnNotifyFish(Vector2 position)
     {
-        // ignore
+        if (Vector2.Distance(transform.position, position) < 12.5f)
+        {
+            StartCoroutine(DodgeShip(position));
+        }
     }
 }

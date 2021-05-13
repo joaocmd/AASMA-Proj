@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        hp = Mathf.Clamp(hp - 20, 0, 100);
+        hp = Mathf.Clamp(hp - 40, 0, 100);
         healthBar.localScale = new Vector3(initialSize * (hp / 100), healthBar.localScale.y, healthBar.localScale.z);
         if (hp <= 0)
         {

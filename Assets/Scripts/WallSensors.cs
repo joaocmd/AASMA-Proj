@@ -18,8 +18,8 @@ public class WallSensors : MonoBehaviour
     public HashSet<WallPosition> HitPositions = new HashSet<WallPosition>();
 
 
-    public float Range { get { return effectiveRange * 2; } set { effectiveRange = value / 2; } }
-    private float effectiveRange;
+    public float Range { get { return EffectiveRange * 2; } set { EffectiveRange = value / 2; } }
+    public float EffectiveRange { get; private set; }
 
     void Update()
     {
@@ -28,9 +28,9 @@ public class WallSensors : MonoBehaviour
         for (int i = 0; i < raysIncr.Length; i++)
         {
             Vector3 dir = Quaternion.Euler(0, 0, raysIncr[i]) * transform.up;
-            Debug.DrawRay(transform.position, dir * effectiveRange, Color.red, 0.1f);
+            Debug.DrawRay(transform.position, dir * EffectiveRange, Color.red, 0.02f);
             // 1 is the default layer
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, effectiveRange, 1);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, EffectiveRange, 1);
 
             if (hit.collider != null)
             {

@@ -3542,13 +3542,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8bb065042ac6941863c5165f91f74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipPrefab: {fileID: 1554522285546641033, guid: 13a324f608951f8438fe4aaa31869143, type: 3}
+  elapsedTime: 0
+  shipPrefab: {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}
   shipSpawns:
   - {fileID: 179672897}
   - {fileID: 735116884}
   - {fileID: 1302201362}
   - {fileID: 58125205}
-  fishPrefab: {fileID: 2394886173827647393, guid: 0073f88d5aaad3e4e9dd6d1b9031cad1, type: 3}
+  fishPrefab: {fileID: 2394886173827647393, guid: 145d5e4e130f9404db801779ae0b450a, type: 3}
   fishSpawns:
   - {fileID: 868509569}
   - {fileID: 1906373151}

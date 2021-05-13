@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : MonoBehaviour, IShip
 {
     public ShipMovement movement;
     public ShipSensors shipSensors;
@@ -76,17 +74,10 @@ public class Ship : MonoBehaviour
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
         var hitVector = hit.point - position;
-        var angle = Vector2.Angle(transform.up, hitVector);
+        var angle = Vector2.SignedAngle(transform.up, hitVector);
         movement.Throttle = 0.6f;
 
-        if (angle < 0)
-        {
-            movement.Helm = 0.9f;
-        }
-        else
-        {
-            movement.Helm = 0.9f;
-        }
+        movement.Helm = Mathf.Sign(angle) * -0.9f;
     }
 
     void FollowFish(Vector2 hit)
@@ -96,23 +87,24 @@ public class Ship : MonoBehaviour
         var hitVector = hit - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
 
-        if (angle > 0)
-        {
-            movement.Helm = 0.5f;
-        }
-        else if (Mathf.Abs(angle) < 15)
+        if (Mathf.Abs(angle) < 15)
         {
             movement.Helm = 0f;
         }
         else
         {
-            movement.Helm = -0.5f;
+            movement.Helm = Mathf.Sign(angle) * 0.5f;
         }
 
-        harpoon.LookAt(hit);
         if (Vector2.Distance(hit, transform.position) < Harpoon.Range)
         {
+            harpoon.LookAt(hit);
             harpoon.Fire();
         }
+    }
+
+    public void OnKilled(string _)
+    {
+        // ignored
     }
 }

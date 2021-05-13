@@ -1,10 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnvironmentManager : MonoBehaviour
 {
+
+    public float elapsedTime = 0f;
 
     public GameObject shipPrefab;
     public List<Transform> shipSpawns;
@@ -35,6 +36,7 @@ public class EnvironmentManager : MonoBehaviour
     void Update()
     {
         UpdateValues();
+        elapsedTime += Time.deltaTime;
     }
 
     void UpdateValues()
@@ -49,6 +51,7 @@ public class EnvironmentManager : MonoBehaviour
     {
         ResetOne((int)nShipsSlider.value, shipPrefab, shipSpawns, ActiveShips);
         ResetOne((int)nFishesSlider.value, fishPrefab, fishSpawns, ActiveFishes, true);
+        elapsedTime = 0f;
     }
 
     void ResetOne(int nObjects, GameObject prefab, List<Transform> spawns, List<GameObject> active, bool randomRot = false)
@@ -98,12 +101,15 @@ public class EnvironmentManager : MonoBehaviour
 
     }
 
-    public void NotifyFish(GameObject fish) {
-       foreach (GameObject other in ActiveFishes) {
-           if (Object.ReferenceEquals(fish, other)) {
-               continue;
-           }
-           other.GetComponent<Fish>().NotifyFish(fish.transform.position);
-       }
+    public void NotifyFish(GameObject fish)
+    {
+        foreach (GameObject other in ActiveFishes)
+        {
+            if (Object.ReferenceEquals(fish, other))
+            {
+                continue;
+            }
+            other.GetComponent<IFish>().OnNotifyFish(fish.transform.position);
+        }
     }
 }

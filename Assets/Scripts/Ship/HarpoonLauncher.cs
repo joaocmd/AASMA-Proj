@@ -9,9 +9,15 @@ public class HarpoonLauncher : MonoBehaviour
     public SpriteRenderer sprite;
     public GameObject harpoonPrefab;
     public GameObject parent;
-    public float noise = 2f;
+    public IShip parentScript;
+    public float noise = 4f;
 
     public float Timer { get; private set; } = 0f;
+
+    void Start()
+    {
+        parentScript = parent.GetComponent<IShip>();
+    }
 
     void Update()
     {
@@ -38,7 +44,7 @@ public class HarpoonLauncher : MonoBehaviour
             GameObject obj = Instantiate(harpoonPrefab, transform.position, transform.rotation);
             sprite.enabled = false;
             var harpoon = obj.GetComponent<Harpoon>();
-            harpoon.Parent = parent;
+            harpoon.Parent = parentScript;
             Timer = Cooldown;
         }
     }
