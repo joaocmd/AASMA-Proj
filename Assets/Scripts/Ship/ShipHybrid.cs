@@ -34,13 +34,9 @@ public class ShipHybrid : MonoBehaviour, IShip
     void Update()
     {
         // hybrid vertical layer architecture, start with reacting to walls/ships
-
-        if (!(ReactiveDecision() || Deliberate()))
-        {
-            // never happens but condition needs to be attributed or used
-            movement.Helm = 0f;
-            movement.Throttle = 1f;
-        }
+        movement.Throttle = 1f;
+        if (ReactiveDecision()) return;
+        if (Deliberate()) return;
     }
 
     // Used to dodge walls and shoot whales
@@ -52,8 +48,8 @@ public class ShipHybrid : MonoBehaviour, IShip
             var distance = Vector2.Distance(whale.Value, transform.position);
             if (distance < Harpoon.Range)
             {
-                var angle = Vector2.SignedAngle(transform.up, whale.Value - transform.position);
-                if (angle < 3f)
+                var angle = Vector2.Angle(transform.up, whale.Value - transform.position);
+                if (angle < 2.5f)
                 {
                     harpoon.Fire();
                     break;
@@ -100,14 +96,29 @@ public class ShipHybrid : MonoBehaviour, IShip
     void FollowWhale()
     {
         bool foundWhale = false;
+        var myPosition = new Vector2(transform.position.x, transform.position.y);
+        // float previousAngle = Vector2.Angle(transform.up, intention.To - myPosition);
+        float previousDistance = Vector2.Distance(intention.To, myPosition);
         foreach (var whale in proximitySensor.SeenWhales)
         {
-            if (whale.Key == intention.Key)
+            if (!foundWhale && whale.Key == intention.Key)
             {
                 intention.To = whale.Value;
+                environment.CoordinateHuntWhale(whale.Key, transform.position, whale.Value);
                 foundWhale = true;
-                environment.UpdateWhalePosition(whale.Key, transform.position, whale.Value);
-                break;
+            }
+            else if (!foundWhale &&
+                Vector2.Angle(transform.up, whale.Value - transform.position) < 40 &&
+                Vector2.Distance(transform.position, whale.Value) < previousDistance)
+            {
+                // allow changing intention to hunt a different whale if it is good enough
+                ChangeIntention(new Intention(Desire.follow, whale.Key, transform.position, false));
+                environment.CoordinateHuntWhale(whale.Key, transform.position, whale.Value);
+                foundWhale = true;
+            }
+            else
+            {
+                environment.NotifyWhaleSighted(whale.Value);
             }
         }
 
@@ -239,7 +250,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         otherIntentions.Remove(ship);
     }
 
-    public void UpdateWhalePosition(string key, Vector2 shipPos, Vector2 whalePos)
+    public void CoordinateHuntWhale(string key, Vector2 shipPos, Vector2 whalePos)
     {
         // if that's my intention, update it
         if (intention.Key == key)
@@ -273,6 +284,14 @@ public class ShipHybrid : MonoBehaviour, IShip
         if (bestCandidate == gameObject)
         {
             ChangeIntention(new Intention(Desire.follow, key, whalePos, true));
+        }
+    }
+
+    public void NotifyWhaleSighted(Vector2 whalePos)
+    {
+        if (intention.Desire == Desire.explore && Random.value < 0.001f)
+        {
+            ChangeIntention(new Intention(Desire.explore, null, whalePos, false));
         }
     }
 }

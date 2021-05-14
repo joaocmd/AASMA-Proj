@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
         healthBar.localScale = new Vector3(initialSize * (hp / 100), healthBar.localScale.y, healthBar.localScale.z);
         if (hp <= 0)
         {
-            GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveShip(gameObject);
+            GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().DestroyShip(gameObject);
             Destroy(gameObject);
         }
     }

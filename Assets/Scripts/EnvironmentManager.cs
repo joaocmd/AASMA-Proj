@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EnvironmentManager : MonoBehaviour
 {
+    public bool randomRotation = true;
 
     public float elapsedTime = 0f;
 
@@ -25,6 +26,8 @@ public class EnvironmentManager : MonoBehaviour
     public Slider harpoonCooldownSlider;
     public Slider harpoonRangeSlider;
 
+    public Text elapsedTimeText;
+
     public Toggle competitive;
 
     void Start()
@@ -35,8 +38,8 @@ public class EnvironmentManager : MonoBehaviour
 
     void Update()
     {
-        UpdateValues();
         elapsedTime += Time.deltaTime;
+        UpdateValues();
     }
 
     void UpdateValues()
@@ -45,16 +48,22 @@ public class EnvironmentManager : MonoBehaviour
         ShipSensors.Size = shipVisionRangeSlider.value;
         HarpoonLauncher.Cooldown = harpoonCooldownSlider.value;
         Harpoon.Range = harpoonRangeSlider.value;
+        elapsedTimeText.text = $"Elapsed Time: {elapsedTime:0.0} seconds";
     }
 
     public void Reset()
     {
+        foreach (var harpoon in GameObject.FindGameObjectsWithTag("Harpoon"))
+        {
+            Destroy(harpoon);
+        }
         ResetOne((int)nShipsSlider.value, shipPrefab, shipSpawns, ActiveShips);
         ResetOne((int)nFishesSlider.value, fishPrefab, fishSpawns, ActiveFishes, true);
-        elapsedTime = 0f;
+        elapsedTime = 0;
+        Time.timeScale = 1;
     }
 
-    void ResetOne(int nObjects, GameObject prefab, List<Transform> spawns, List<GameObject> active, bool randomRot = false)
+    void ResetOne(int nObjects, GameObject prefab, List<Transform> spawns, List<GameObject> active, bool isFish = false)
     {
         while (active.Count != 0)
         {
@@ -69,9 +78,10 @@ public class EnvironmentManager : MonoBehaviour
         {
             var instance = GameObject.Instantiate(prefab, newSpawns[i].position, newSpawns[i].rotation);
             instance.name += $" {i}";
-            if (randomRot)
+            if (isFish)
             {
-                instance.GetComponent<FishMovement>().Rotation = Random.Range(0f, 360f);
+                instance.GetComponent<FishMovement>().Rotation = newSpawns[i].rotation.eulerAngles.z;
+                if (randomRotation) instance.GetComponent<FishMovement>().Rotation = Random.Range(0f, 360f);
             }
             active.Add(instance);
         }
@@ -93,12 +103,25 @@ public class EnvironmentManager : MonoBehaviour
     public void RemoveFish(GameObject fish)
     {
         ActiveFishes.Remove(fish);
+        if (ActiveFishes.Count == 0)
+        {
+            Time.timeScale = 0;
+        }
+    }
+
+    public void DestroyShip(GameObject ship)
+    {
+        RemoveShip(ship);
+        ActiveShips.Remove(ship);
+        if (ActiveShips.Count == 0)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void RemoveShip(GameObject ship)
     {
-        ActiveShips.Remove(ship);
-
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().RemoveShip(ship));
     }
 
     public void NotifyFish(GameObject fish)
@@ -123,8 +146,13 @@ public class EnvironmentManager : MonoBehaviour
         ActiveShips.ForEach(s => s.GetComponent<IShip>().UpdateShip(gameObject, intention));
     }
 
-    public void UpdateWhalePosition(string key, Vector2 shipPos, Vector2 whalePos)
+    public void CoordinateHuntWhale(string key, Vector2 shipPos, Vector2 whalePos)
     {
-        ActiveShips.ForEach(s => s.GetComponent<IShip>().UpdateWhalePosition(key, shipPos, whalePos));
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().CoordinateHuntWhale(key, shipPos, whalePos));
+    }
+
+    public void NotifyWhaleSighted(Vector2 whalePos)
+    {
+        ActiveShips.ForEach(s => s.GetComponent<IShip>().NotifyWhaleSighted(whalePos));
     }
 }
