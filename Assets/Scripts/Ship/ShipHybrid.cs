@@ -207,7 +207,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         var distanceVector = goal - myPosition;
         var angle = Vector2.SignedAngle(transform.up, distanceVector);
 
-        if (Mathf.Abs(angle) < 10)
+        if (Mathf.Abs(angle) < 3f)
         {
             movement.Helm = 0f;
         }

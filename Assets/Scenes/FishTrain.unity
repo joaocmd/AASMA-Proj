@@ -477,6 +477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 2394886173827647393, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -521,94 +525,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6475881088829149174, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-    - {fileID: 5387011751072617073, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-    - {fileID: 8452821032712591120, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
+    - target: {fileID: 8452821032712591120, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
---- !u!1 &82174102 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2394886173827647393, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-  m_PrefabInstance: {fileID: 82174101}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &82174103 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4740885171875324737, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-  m_PrefabInstance: {fileID: 82174101}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82174102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78065563e8fd28d409598e4ea5a835b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &82174104 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2132247013, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-  m_PrefabInstance: {fileID: 82174101}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82174102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ba4de03576a6ce48b56c61da94476cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &82174105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82174102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
---- !u!114 &82174106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82174102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 248638c4668d3ca4e8509b1066976486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  movement: {fileID: 82174104}
-  sensors: {fileID: 82174103}
---- !u!114 &82174107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82174102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 1
-    VectorActionSize: 02000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 1
-  m_Model: {fileID: 0}
-  m_InferenceDevice: 0
-  m_BehaviorType: 2
-  m_BehaviorName: My Behavior
-  TeamId: 0
-  m_UseChildSensors: 1
 --- !u!1 &110321822
 GameObject:
   m_ObjectHideFlags: 0
@@ -7675,5 +7597,13 @@ PrefabInstance:
       propertyPath: shipSpawns.Array.data[26]
       value: 
       objectReference: {fileID: 389320906}
+    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}

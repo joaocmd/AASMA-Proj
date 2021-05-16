@@ -46,6 +46,9 @@ public class FishAgent : Agent, IFish
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        // current direction
+        sensor.AddObservation(movement.Direction);
+
         // wall sensors
         sensor.AddObservation(wallSensors.HitPositions.Contains(WallPosition.LEFT));
         sensor.AddObservation(wallSensors.HitPositions.Contains(WallPosition.MIDDLE));
@@ -99,6 +102,11 @@ public class FishAgent : Agent, IFish
     public void OnNotifyFish(Vector2 position)
     {
         throw new System.NotImplementedException();
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        SetReward(-5);
     }
 
     public void Kill()

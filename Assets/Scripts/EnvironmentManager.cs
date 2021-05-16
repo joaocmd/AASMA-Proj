@@ -106,13 +106,8 @@ public class EnvironmentManager : MonoBehaviour
 
     public void RemoveFish(GameObject fish)
     {
-        if (training)
-        {
-            return;
-        }
-
         ActiveFishes.Remove(fish);
-        if (ActiveFishes.Count == 0)
+        if (ActiveFishes.Count == 0 && !training)
         {
             Time.timeScale = 0;
         }
@@ -120,14 +115,9 @@ public class EnvironmentManager : MonoBehaviour
 
     public void DestroyShip(GameObject ship)
     {
-        if (training)
-        {
-            return;
-        }
-
         RemoveShip(ship);
         ActiveShips.Remove(ship);
-        if (ActiveShips.Count == 0)
+        if (ActiveShips.Count == 0 && !training)
         {
             Time.timeScale = 0;
         }

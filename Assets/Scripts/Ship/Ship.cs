@@ -85,7 +85,7 @@ public class Ship : MonoBehaviour, IShip
         var hitVector = hit - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
 
-        if (Mathf.Abs(angle) < 10)
+        if (Mathf.Abs(angle) < 3f)
         {
             movement.Helm = 0f;
         }
