@@ -81,11 +81,11 @@ public class Fish : MonoBehaviour, IFish
         }
         else if (Random.value < 0.99)
         {
-            movement.Rotation += Mathf.Sign(angle) * 2f;
+            movement.Rotate(Mathf.Sign(angle) * 2f);
         }
         else
         {
-            movement.Rotation += Mathf.Sign(angle) * 90f;
+            movement.Rotate(Mathf.Sign(angle) * 90f);
         }
     }
 
@@ -94,7 +94,7 @@ public class Fish : MonoBehaviour, IFish
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
         var hitVector = position - hit;
-        movement.Rotation = Vector2.Angle(hitVector, Vector2.up);
+        movement.Direction = hitVector;
     }
 
     void Explore()
@@ -105,7 +105,7 @@ public class Fish : MonoBehaviour, IFish
         }
         else
         {
-            movement.Rotation += Random.Range(-5, 5);
+            movement.Rotate(Random.Range(-5, 5));
         }
     }
 

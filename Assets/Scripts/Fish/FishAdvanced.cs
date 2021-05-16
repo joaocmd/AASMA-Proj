@@ -89,11 +89,11 @@ public class FishAdvanced : MonoBehaviour, IFish
         }
         else if (Random.value < 0.99)
         {
-            movement.Rotation += Mathf.Sign(angle) * 2f;
+            movement.Rotate(Mathf.Sign(angle) * 2f);
         }
         else
         {
-            movement.Rotation += Mathf.Sign(angle) * 90f;
+            movement.Rotate(Mathf.Sign(angle) * 90f);
         }
     }
 
@@ -102,7 +102,7 @@ public class FishAdvanced : MonoBehaviour, IFish
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
         var distanceVector = (position - hit).normalized;
-        movement.Rotation = Vector2.Angle(distanceVector, Vector2.up);
+        movement.Direction = distanceVector;
 
         int incr = 15;
         // try to decide where to dodge, prefer dodging straight out, if not possible then to 15 degrees
@@ -117,7 +117,7 @@ public class FishAdvanced : MonoBehaviour, IFish
             RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, left, wallSensors.EffectiveRange, 1);
             if (raycastHit.collider != null)
             {
-                movement.Rotation = Vector2.Angle(left, Vector2.up);
+                movement.Direction = left;
             }
 
             // 1 is the default layer
@@ -125,7 +125,7 @@ public class FishAdvanced : MonoBehaviour, IFish
             raycastHit = Physics2D.Raycast(transform.position, right, wallSensors.EffectiveRange, 1);
             if (raycastHit.collider != null)
             {
-                movement.Rotation = Vector2.Angle(right, Vector2.up);
+                movement.Direction = right;
             }
         }
 
@@ -141,7 +141,7 @@ public class FishAdvanced : MonoBehaviour, IFish
         }
         else
         {
-            movement.Rotation += Random.Range(-5, 5);
+            movement.Rotate(Random.Range(-5, 5));
         }
     }
 

@@ -80,8 +80,8 @@ public class EnvironmentManager : MonoBehaviour
             instance.name += $" {i}";
             if (isFish)
             {
-                instance.GetComponent<FishMovement>().Rotation = newSpawns[i].rotation.eulerAngles.z;
-                if (randomRotation) instance.GetComponent<FishMovement>().Rotation = Random.Range(0f, 360f);
+                instance.GetComponent<FishMovement>().Direction = newSpawns[i].up;
+                if (randomRotation) instance.GetComponent<FishMovement>().Rotate(Random.Range(0f, 360f));
             }
             active.Add(instance);
         }
