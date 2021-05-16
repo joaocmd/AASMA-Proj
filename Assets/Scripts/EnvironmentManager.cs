@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class EnvironmentManager : MonoBehaviour
 {
     public bool randomRotation = true;
+    public bool training = false;
 
     public float elapsedTime = 0f;
 
@@ -33,7 +34,10 @@ public class EnvironmentManager : MonoBehaviour
     void Start()
     {
         UpdateValues();
-        Reset();
+        if (!training)
+        {
+            Reset();
+        }
     }
 
     void Update()
@@ -102,6 +106,11 @@ public class EnvironmentManager : MonoBehaviour
 
     public void RemoveFish(GameObject fish)
     {
+        if (training)
+        {
+            return;
+        }
+
         ActiveFishes.Remove(fish);
         if (ActiveFishes.Count == 0)
         {
@@ -111,6 +120,11 @@ public class EnvironmentManager : MonoBehaviour
 
     public void DestroyShip(GameObject ship)
     {
+        if (training)
+        {
+            return;
+        }
+
         RemoveShip(ship);
         ActiveShips.Remove(ship);
         if (ActiveShips.Count == 0)

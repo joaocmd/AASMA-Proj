@@ -48,8 +48,10 @@ public class ShipHybrid : MonoBehaviour, IShip
             var distance = Vector2.Distance(whale.Value, transform.position);
             if (distance < Harpoon.Range)
             {
+                var normalizedDistance = Mathf.Min(5.5f, distance) / 5.5f;
+                var angleThreshold = 5f / normalizedDistance;
                 var angle = Vector2.Angle(transform.up, whale.Value - transform.position);
-                if (angle < 2.5f)
+                if (angle < angleThreshold)
                 {
                     harpoon.Fire();
                     break;

@@ -145,11 +145,17 @@ public class FishAdvanced : MonoBehaviour, IFish
         }
     }
 
-    void IFish.OnNotifyFish(Vector2 position)
+    public void OnNotifyFish(Vector2 position)
     {
         if (Vector2.Distance(transform.position, position) < 12.5f)
         {
             StartCoroutine(DodgeShip(position));
         }
+    }
+
+    public void Kill()
+    {
+        GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveFish(gameObject);
+        Destroy(gameObject);
     }
 }

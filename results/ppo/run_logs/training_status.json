@@ -1,0 +1,29 @@
+{
+    "Survive": {
+        "checkpoints": [
+            {
+                "steps": 51134,
+                "file_path": "results\\ppo\\Survive\\Survive-51134.onnx",
+                "reward": 11.227272727272727,
+                "creation_time": 1621182447.8230164,
+                "auxillary_file_paths": [
+                    "results\\ppo\\Survive\\Survive-51134.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 51134,
+            "file_path": "results\\ppo\\Survive.onnx",
+            "reward": 11.227272727272727,
+            "creation_time": 1621182447.8230164,
+            "auxillary_file_paths": [
+                "results\\ppo\\Survive\\Survive-51134.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.8.1+cpu"
+    }
+}

@@ -28,9 +28,8 @@ public class Harpoon : MonoBehaviour
     {
         if (other.gameObject.tag == "Fish")
         {
-            GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveFish(other.gameObject);
+            other.GetComponent<IFish>().Kill();
             Parent.OnKilled(other.gameObject.name);
-            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Island")
         {

@@ -109,8 +109,14 @@ public class Fish : MonoBehaviour, IFish
         }
     }
 
-    void IFish.OnNotifyFish(Vector2 position)
+    public void OnNotifyFish(Vector2 position)
     {
         // ignore
+    }
+
+    public void Kill()
+    {
+        GameObject.FindWithTag("GameManager").GetComponent<EnvironmentManager>().RemoveFish(gameObject);
+        Destroy(gameObject);
     }
 }
