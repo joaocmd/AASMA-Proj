@@ -8,34 +8,36 @@ public class FishAdvanced : MonoBehaviour, IFish
     public FishSensors sensors;
     private WallSensors wallSensors;
     private ProximitySensor vision;
-
-    private bool reactToShip = true;
+    private Vector2? closestShip;
+    private RaycastHit2D? closestWall;
 
     // Start is called before the first frame update
     void Start()
     {
+        closestShip = null;
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
         environment = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnvironmentManager>();
+        movement.Speed = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        var closestShip = GetClosestShip();
-        if (closestShip != null && reactToShip)
+        closestShip = GetClosestShip();
+        closestWall = GetClosestWall();
+
+        if (closestShip != null)
         {
             environment.NotifyFish(gameObject);
-            StartCoroutine(DodgeShip(closestShip.GetValueOrDefault()));
-            reactToShip = false;
+            DodgeShip(closestShip.GetValueOrDefault());
             return;
         }
 
-        var closest = GetClosestWall();
-        if (closest != null)
+        if (closestWall != null)
         {
-            DodgeWall(closest.GetValueOrDefault());
+            DodgeWall(closestWall.GetValueOrDefault());
             return;
         }
 
@@ -79,69 +81,63 @@ public class FishAdvanced : MonoBehaviour, IFish
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
 
         var hitVector = hit.point - position;
-        // Debug.Log($"Hit Vector: {hitVector}");
         var angle = -Vector2.SignedAngle(transform.up, hitVector);
+        var random = Random.value;
+
         if (wallSensors.HitPositions.Contains(WallPosition.LEFT)
             && wallSensors.HitPositions.Contains(WallPosition.RIGHT)
             && !wallSensors.HitPositions.Contains(WallPosition.MIDDLE))
         {
             // keep going forward
         }
-        else if (Random.value < 0.99)
+        else if (hitVector.magnitude < 2f)
         {
-            movement.Rotate(Mathf.Sign(angle) * 2f);
-        }
-        else
-        {
-            movement.Rotate(Mathf.Sign(angle) * 90f);
+            if ((random < 0.95 || closestShip != null))
+            {
+                movement.Rotate(Mathf.Sign(angle) * 2f);
+            }
+            else if (random >= 0.95 && random < 0.99 && closestShip == null)
+            {
+                movement.Rotate(Mathf.Sign(angle) * 50f);
+            }
+            else if (random >= 0.99 && closestShip == null)
+            {
+                movement.Rotate(Mathf.Sign(angle) * 80f);
+            }
         }
     }
 
-    IEnumerator DodgeShip(Vector2 hit)
+    void DodgeShip(Vector2 hit)
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
-
         var distanceVector = (position - hit).normalized;
-        movement.Direction = distanceVector;
-
-        int incr = 15;
-        // try to decide where to dodge, prefer dodging straight out, if not possible then to 15 degrees
-        // off straight out, then 30, etc...
-        for (int i = 0; incr * i < 170; i++)
+        var angle = Vector2.Angle(transform.up, distanceVector);
+        
+        if (closestWall == null) 
         {
-            Vector3 left = Quaternion.Euler(0, 0, -(incr * i)) * distanceVector;
-            Vector3 right = Quaternion.Euler(0, 0, (incr * i)) * distanceVector;
-
-            // 1 is the default layer
-            Debug.DrawRay(transform.position, left * wallSensors.EffectiveRange, Color.magenta, 0.02f);
-            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, left, wallSensors.EffectiveRange, 1);
-            if (raycastHit.collider != null)
-            {
-                movement.Direction = left;
-            }
-
-            // 1 is the default layer
-            Debug.DrawRay(transform.position, right * wallSensors.EffectiveRange, Color.magenta, 0.02f);
-            raycastHit = Physics2D.Raycast(transform.position, right, wallSensors.EffectiveRange, 1);
-            if (raycastHit.collider != null)
-            {
-                movement.Direction = right;
-            }
+            movement.Direction = distanceVector;
+        }
+        else if (angle > 150) 
+        {
+            movement.Rotate(Mathf.Sign(angle) * 180f);
+        }
+        else 
+        {
+            DodgeWall(closestWall.GetValueOrDefault());
         }
 
-        yield return new WaitForSeconds(2.5f);
-        reactToShip = true;
     }
 
     void Explore()
     {
-        if (Random.value < 0.95)
+        var random  = Random.value;
+        if (random < 0.999)
         {
             movement.Speed = 1;
         }
-        else
+        else if (closestShip == null && random >= 0.99)
         {
-            movement.Rotate(Random.Range(-5, 5));
+            movement.Rotate(Random.Range(-20, 20));
         }
     }
 
@@ -149,7 +145,7 @@ public class FishAdvanced : MonoBehaviour, IFish
     {
         if (Vector2.Distance(transform.position, position) < 12.5f)
         {
-            StartCoroutine(DodgeShip(position));
+            DodgeShip(position);
         }
     }
 }
