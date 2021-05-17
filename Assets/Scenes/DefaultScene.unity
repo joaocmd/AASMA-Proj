@@ -3622,6 +3622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomRotation: 1
+  training: 0
   elapsedTime: 0
   shipPrefab: {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}
   shipSpawns:
