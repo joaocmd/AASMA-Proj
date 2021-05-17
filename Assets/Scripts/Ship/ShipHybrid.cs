@@ -70,6 +70,12 @@ public class ShipHybrid : MonoBehaviour, IShip
         //     }
         // }
 
+        if (hasShipNearBy())
+        {
+            DodgeShip();
+            return true;
+        }
+
         var closest = GetClosestWall();
         if (closest != null)
         {
@@ -173,6 +179,16 @@ public class ShipHybrid : MonoBehaviour, IShip
         return closest;
     }
 
+    bool hasShipNearBy()
+    {
+        if (wallSensors.HitObjects.Contains(ObjectClass.SHIP)) 
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     RaycastHit2D? GetClosestWall()
     {
         RaycastHit2D? closest = null;
@@ -198,6 +214,37 @@ public class ShipHybrid : MonoBehaviour, IShip
         movement.Throttle = 0.6f;
 
         movement.Helm = Mathf.Sign(angle) * -0.9f;
+    }
+
+    void DodgeShip()
+    {
+        // Both cannot turn at the same time, otherwise they will hit each other
+
+        //TODO: sandwish case
+        if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP &&
+            wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.WALL)
+        {
+            movement.Throttle = 0.2f;
+            movement.Helm = 0;
+        }
+        else if (wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.SHIP &&
+            wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.WALL)
+        {
+            movement.Throttle = 0.2f;
+            movement.Helm = 0;
+        }
+        else if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP || 
+            (wallSensors.HitObjects[(int)WallPosition.MIDDLE] == ObjectClass.SHIP && 
+            wallSensors.HitObjects[(int)WallPosition.LEFT] != ObjectClass.SHIP &&
+            wallSensors.HitObjects[(int)WallPosition.RIGHT] != ObjectClass.SHIP))
+        {
+            movement.Throttle = 0.4f;
+            movement.Helm -= 0.2f;
+        }
+        else if (wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.SHIP)
+        {
+            movement.Helm = 0;
+        }
     }
 
     void MoveTowards(Vector2 goal)

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum WallPosition
 {
-    LEFT,
-    MIDDLE,
-    RIGHT
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2
 }
 
 public enum ObjectClass
@@ -47,8 +47,8 @@ public class WallSensors : MonoBehaviour
                 Hits.Add(hit);
                 if (i <= 1)
                 {
-                    HitPositions.Add(WallPosition.LEFT);
-                    HitObjects[0] = (hit.collider.tag == "Ship") ? ObjectClass.SHIP : ObjectClass.WALL;
+                    HitPositions.Add(WallPosition.RIGHT);
+                    HitObjects[2] = (hit.collider.tag == "Ship") ? ObjectClass.SHIP : ObjectClass.WALL;
                 }
                 else if (i <= 4)
                 {
@@ -57,8 +57,8 @@ public class WallSensors : MonoBehaviour
                 }
                 else
                 {
-                    HitPositions.Add(WallPosition.RIGHT);
-                    HitObjects[2] = (hit.collider.tag == "Ship") ? ObjectClass.SHIP : ObjectClass.WALL;
+                    HitPositions.Add(WallPosition.LEFT);
+                    HitObjects[0] = (hit.collider.tag == "Ship") ? ObjectClass.SHIP : ObjectClass.WALL;
                 }
             }
 
