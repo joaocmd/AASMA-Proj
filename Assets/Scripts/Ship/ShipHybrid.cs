@@ -70,7 +70,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         //     }
         // }
 
-        if (hasShipNearBy())
+        if (HasShipNearby())
         {
             DodgeShip();
             return true;
@@ -179,14 +179,9 @@ public class ShipHybrid : MonoBehaviour, IShip
         return closest;
     }
 
-    bool hasShipNearBy()
+    bool HasShipNearby()
     {
-        if (wallSensors.HitObjects.Contains(ObjectClass.SHIP)) 
-        {
-            return true;
-        }
-
-        return false;
+        return wallSensors.HitObjects.Contains(ObjectClass.SHIP);
     }
 
     RaycastHit2D? GetClosestWall()
@@ -233,8 +228,8 @@ public class ShipHybrid : MonoBehaviour, IShip
             movement.Throttle = 0.2f;
             movement.Helm = 0;
         }
-        else if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP || 
-            (wallSensors.HitObjects[(int)WallPosition.MIDDLE] == ObjectClass.SHIP && 
+        else if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP ||
+            (wallSensors.HitObjects[(int)WallPosition.MIDDLE] == ObjectClass.SHIP &&
             wallSensors.HitObjects[(int)WallPosition.LEFT] != ObjectClass.SHIP &&
             wallSensors.HitObjects[(int)WallPosition.RIGHT] != ObjectClass.SHIP))
         {
@@ -297,6 +292,11 @@ public class ShipHybrid : MonoBehaviour, IShip
     public void RemoveShip(GameObject ship)
     {
         otherIntentions.Remove(ship);
+    }
+
+    public void RemoveAllShips()
+    {
+        otherIntentions.Clear();
     }
 
     public void CoordinateHuntWhale(string key, Vector2 shipPos, Vector2 whalePos)

@@ -107,6 +107,7 @@ public class Ship : MonoBehaviour, IShip
     public void OnNotifyKill(string _) { }
     public void UpdateShip(GameObject gameObject, Intention intention) { }
     public void RemoveShip(GameObject gameObject) { }
+    public void RemoveAllShips() { }
     public void NotifyWhaleSighted(Vector2 whalePos) { }
     public void CoordinateHuntWhale(string key, Vector2 shipPos, Vector2 whalePos) { }
 }

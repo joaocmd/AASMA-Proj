@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnvironmentManager : MonoBehaviour
 {
@@ -9,11 +10,11 @@ public class EnvironmentManager : MonoBehaviour
 
     public float elapsedTime = 0f;
 
-    public GameObject shipPrefab;
+    public GameObject[] shipPrefabs;
     public List<Transform> shipSpawns;
     public static List<GameObject> ActiveShips = new List<GameObject>();
 
-    public GameObject fishPrefab;
+    public GameObject[] fishPrefabs;
     public List<Transform> fishSpawns;
     public static List<GameObject> ActiveFishes = new List<GameObject>();
 
@@ -26,13 +27,22 @@ public class EnvironmentManager : MonoBehaviour
     public Slider shipVisionRangeSlider;
     public Slider harpoonCooldownSlider;
     public Slider harpoonRangeSlider;
+    public Slider harpoonSpeedSlider;
+
+    public Slider fishSpeedSlider;
+    public Slider shipSpeedSlider;
+    public Slider fishPrefabSlider;
+    public Slider shipPrefabSlider;
+
+    public Toggle communicationToggle;
+    private bool hasCommunication;
+
 
     public Text elapsedTimeText;
 
-    public Toggle competitive;
-
     void Start()
     {
+        communicationToggle.onValueChanged.AddListener(ToggleCommunication);
         UpdateValues();
         if (!training)
         {
@@ -52,6 +62,10 @@ public class EnvironmentManager : MonoBehaviour
         ShipSensors.Size = shipVisionRangeSlider.value;
         HarpoonLauncher.Cooldown = harpoonCooldownSlider.value;
         Harpoon.Range = harpoonRangeSlider.value;
+        Harpoon.Speed = harpoonSpeedSlider.value;
+
+        FishMovement.maxSpeed = fishSpeedSlider.value;
+        ShipMovement.speed = shipSpeedSlider.value;
         elapsedTimeText.text = $"Elapsed Time: {elapsedTime:0.0} seconds";
     }
 
@@ -61,8 +75,8 @@ public class EnvironmentManager : MonoBehaviour
         {
             Destroy(harpoon);
         }
-        ResetOne((int)nShipsSlider.value, shipPrefab, shipSpawns, ActiveShips);
-        ResetOne((int)nFishesSlider.value, fishPrefab, fishSpawns, ActiveFishes, true);
+        ResetOne((int)nShipsSlider.value, shipPrefabs[(int)shipPrefabSlider.value], shipSpawns, ActiveShips);
+        ResetOne((int)nFishesSlider.value, fishPrefabs[(int)fishPrefabSlider.value], fishSpawns, ActiveFishes, true);
         elapsedTime = 0;
         Time.timeScale = 1;
     }
@@ -130,6 +144,10 @@ public class EnvironmentManager : MonoBehaviour
 
     public void NotifyFish(GameObject fish)
     {
+        if (!hasCommunication)
+        {
+            return;
+        }
         foreach (GameObject other in ActiveFishes)
         {
             if (Object.ReferenceEquals(fish, other))
@@ -142,21 +160,51 @@ public class EnvironmentManager : MonoBehaviour
 
     public void NotifyKill(string key)
     {
+        if (!hasCommunication)
+        {
+            return;
+        }
         ActiveShips.ForEach(s => s.GetComponent<IShip>().OnNotifyKill(key));
     }
 
     public void UpdateShip(GameObject gameObject, Intention intention)
     {
+        if (!hasCommunication)
+        {
+            return;
+        }
         ActiveShips.ForEach(s => s.GetComponent<IShip>().UpdateShip(gameObject, intention));
     }
 
     public void CoordinateHuntWhale(string key, Vector2 shipPos, Vector2 whalePos)
     {
+        if (!hasCommunication)
+        {
+            return;
+        }
         ActiveShips.ForEach(s => s.GetComponent<IShip>().CoordinateHuntWhale(key, shipPos, whalePos));
     }
 
     public void NotifyWhaleSighted(Vector2 whalePos)
     {
+        if (!hasCommunication)
+        {
+            return;
+        }
         ActiveShips.ForEach(s => s.GetComponent<IShip>().NotifyWhaleSighted(whalePos));
+    }
+
+    public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+    public void ToggleCommunication(bool value)
+    {
+        hasCommunication = value;
+        if (value == false)
+        {
+            ActiveShips.ForEach(s => s.GetComponent<IShip>().RemoveAllShips());
+        }
     }
 }
