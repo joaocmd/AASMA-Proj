@@ -8,6 +8,7 @@ public class FishAdvanced : MonoBehaviour, IFish
     public FishSensors sensors;
     private WallSensors wallSensors;
     private ProximitySensor vision;
+    private HarpoonSensor harpoonSensor;
     private Vector2? closestShip;
     private RaycastHit2D? closestWall;
 
@@ -17,6 +18,7 @@ public class FishAdvanced : MonoBehaviour, IFish
         closestShip = null;
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
+        harpoonSensor = sensors.harpoonSensor;
         environment = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnvironmentManager>();
         movement.Speed = 1;
     }
@@ -27,6 +29,13 @@ public class FishAdvanced : MonoBehaviour, IFish
 
         closestShip = GetClosestShip();
         closestWall = GetClosestWall();
+        Transform closestHarpoon = GetClosestHarpoon();
+
+        if (closestHarpoon != null)
+        {
+            Dodgeharpoon(closestHarpoon);
+            return;
+        }
 
         if (closestShip != null)
         {
@@ -76,6 +85,22 @@ public class FishAdvanced : MonoBehaviour, IFish
         return closest;
     }
 
+    Transform GetClosestHarpoon()
+    {
+        Transform closest = null;
+        float minDistance = float.MaxValue;
+        foreach (var hit in harpoonSensor.SeenHarpoons)
+        {
+            var distance = Vector2.Distance(hit.position, transform.position);
+            if (distance < minDistance)
+            {
+                closest = hit;
+                minDistance = distance;
+            }
+        }
+        return closest;
+    }
+
     void DodgeWall(RaycastHit2D hit)
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
@@ -112,25 +137,56 @@ public class FishAdvanced : MonoBehaviour, IFish
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - hit).normalized;
         var angle = Vector2.Angle(transform.up, distanceVector);
-        
-        if (closestWall == null) 
+
+        if (closestWall == null)
         {
             movement.Direction = distanceVector;
         }
-        else if (angle > 150) 
+        else if (angle > 150)
         {
             movement.Rotate(Mathf.Sign(angle) * 180f);
         }
-        else 
+        else
         {
             DodgeWall(closestWall.GetValueOrDefault());
         }
 
     }
 
+    void Dodgeharpoon(Transform harpoon)
+    {
+        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
+        var angle = Vector2.SignedAngle(transform.up, distanceVector);
+        var toRotate = Mathf.Abs(90 - angle);
+        var isAboveTheHarpoon = Mathf.Sign(transform.position.y - harpoon.position.y) == 1;
+
+        Debug.Log(angle);
+        Debug.Log(isAboveTheHarpoon);
+
+        if (angle < 80 && angle >= 0)
+        {
+            movement.Rotate(-toRotate + (!isAboveTheHarpoon ? 180f : 0f));
+        }
+        else if (angle > 110)
+        {
+            movement.Rotate(toRotate + (!isAboveTheHarpoon ? 180f : 0f));
+        }
+        else if (angle > -80 && angle < 0)
+        {
+            movement.Rotate(+toRotate + (isAboveTheHarpoon ? 180f : 0f));
+        }
+        else if (angle < -110)
+        {
+            movement.Rotate(-toRotate + (isAboveTheHarpoon ? 180f : 0f));
+        }
+
+        movement.Speed = 1f;
+    }
+
     void Explore()
     {
-        var random  = Random.value;
+        var random = Random.value;
         if (random < 0.999)
         {
             movement.Speed = 1;

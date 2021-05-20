@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HarpoonSensor : MonoBehaviour
 {
-    List<Transform> SeenHarpoons = new List<Transform>();
+    public List<Transform> SeenHarpoons = new List<Transform>();
     public int tickRate = 150;
     public float Range;
     private DateTime lastTick;

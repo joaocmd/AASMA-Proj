@@ -7,7 +7,6 @@ public class ProximitySensor : MonoBehaviour
 {
     // public property for the outside
     public Dictionary<string, Vector3> SeenShips = new Dictionary<string, Vector3>();
-    public Dictionary<string, Vector3> SeenHarpoons = new Dictionary<string, Vector3>();
     public Dictionary<string, Vector3> SeenWhales = new Dictionary<string, Vector3>();
 
     public float noise = 0.5f;
