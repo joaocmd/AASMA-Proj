@@ -3689,13 +3689,13 @@ MonoBehaviour:
   randomRotation: 1
   training: 1
   elapsedTime: 0
-  shipPrefab: {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}
+  shipPrefabs: []
   shipSpawns:
   - {fileID: 179672897}
   - {fileID: 735116884}
   - {fileID: 1302201362}
   - {fileID: 58125205}
-  fishPrefab: {fileID: 2394886173827647393, guid: 145d5e4e130f9404db801779ae0b450a, type: 3}
+  fishPrefabs: []
   fishSpawns:
   - {fileID: 868509569}
   - {fileID: 1906373151}
@@ -3730,8 +3730,13 @@ MonoBehaviour:
   shipVisionRangeSlider: {fileID: 987194867}
   harpoonCooldownSlider: {fileID: 1235480638}
   harpoonRangeSlider: {fileID: 1138051869}
+  harpoonSpeedSlider: {fileID: 0}
+  fishSpeedSlider: {fileID: 0}
+  shipSpeedSlider: {fileID: 0}
+  fishPrefabSlider: {fileID: 0}
+  shipPrefabSlider: {fileID: 0}
+  communicationToggle: {fileID: 0}
   elapsedTimeText: {fileID: 990421841}
-  competitive: {fileID: 690767476}
 --- !u!4 &1161439237
 Transform:
   m_ObjectHideFlags: 0
@@ -7321,10 +7326,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishAgentTrain
       objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647393, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2394886173827647395, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -7368,242 +7369,6 @@ PrefabInstance:
     - target: {fileID: 2394886173827647395, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: MaxStep
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.size
-      value: 27
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[0]
-      value: 
-      objectReference: {fileID: 868509569}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[1]
-      value: 
-      objectReference: {fileID: 1906373151}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[2]
-      value: 
-      objectReference: {fileID: 1660793309}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[3]
-      value: 
-      objectReference: {fileID: 1445022744}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[4]
-      value: 
-      objectReference: {fileID: 1673703503}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[5]
-      value: 
-      objectReference: {fileID: 1474817028}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[6]
-      value: 
-      objectReference: {fileID: 1731864963}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[7]
-      value: 
-      objectReference: {fileID: 1586864098}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[8]
-      value: 
-      objectReference: {fileID: 1464289839}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[9]
-      value: 
-      objectReference: {fileID: 366891645}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[0]
-      value: 
-      objectReference: {fileID: 179672897}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[1]
-      value: 
-      objectReference: {fileID: 735116884}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[2]
-      value: 
-      objectReference: {fileID: 1302201362}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[3]
-      value: 
-      objectReference: {fileID: 58125205}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[4]
-      value: 
-      objectReference: {fileID: 1673703503}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[5]
-      value: 
-      objectReference: {fileID: 1474817028}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[6]
-      value: 
-      objectReference: {fileID: 1731864963}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[7]
-      value: 
-      objectReference: {fileID: 1586864098}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[8]
-      value: 
-      objectReference: {fileID: 1464289839}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[9]
-      value: 
-      objectReference: {fileID: 366891645}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[10]
-      value: 
-      objectReference: {fileID: 916538281}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[11]
-      value: 
-      objectReference: {fileID: 1293882790}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[12]
-      value: 
-      objectReference: {fileID: 1958738360}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[13]
-      value: 
-      objectReference: {fileID: 591555074}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[14]
-      value: 
-      objectReference: {fileID: 731103732}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[15]
-      value: 
-      objectReference: {fileID: 832227546}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[16]
-      value: 
-      objectReference: {fileID: 1717984854}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[17]
-      value: 
-      objectReference: {fileID: 673608693}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[18]
-      value: 
-      objectReference: {fileID: 1109597756}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[19]
-      value: 
-      objectReference: {fileID: 195377472}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[20]
-      value: 
-      objectReference: {fileID: 1200869637}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[21]
-      value: 
-      objectReference: {fileID: 1367475930}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[22]
-      value: 
-      objectReference: {fileID: 483588152}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[23]
-      value: 
-      objectReference: {fileID: 612043809}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[24]
-      value: 
-      objectReference: {fileID: 1930822136}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[25]
-      value: 
-      objectReference: {fileID: 1150660870}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[26]
-      value: 
-      objectReference: {fileID: 389320906}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[10]
-      value: 
-      objectReference: {fileID: 916538281}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[11]
-      value: 
-      objectReference: {fileID: 1293882790}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[12]
-      value: 
-      objectReference: {fileID: 1958738360}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[13]
-      value: 
-      objectReference: {fileID: 591555074}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[14]
-      value: 
-      objectReference: {fileID: 731103732}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[15]
-      value: 
-      objectReference: {fileID: 832227546}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[16]
-      value: 
-      objectReference: {fileID: 1717984854}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[17]
-      value: 
-      objectReference: {fileID: 673608693}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[18]
-      value: 
-      objectReference: {fileID: 1109597756}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[19]
-      value: 
-      objectReference: {fileID: 195377472}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[20]
-      value: 
-      objectReference: {fileID: 1200869637}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[21]
-      value: 
-      objectReference: {fileID: 1367475930}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[22]
-      value: 
-      objectReference: {fileID: 483588152}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[23]
-      value: 
-      objectReference: {fileID: 612043809}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[24]
-      value: 
-      objectReference: {fileID: 1930822136}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[25]
-      value: 
-      objectReference: {fileID: 1150660870}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.data[26]
-      value: 
-      objectReference: {fileID: 389320906}
-    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_BrainParameters.NumStackedVectorObservations
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}

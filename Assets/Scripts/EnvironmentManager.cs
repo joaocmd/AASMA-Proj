@@ -18,6 +18,7 @@ public class EnvironmentManager : MonoBehaviour
     public List<Transform> fishSpawns;
     public static List<GameObject> ActiveFishes = new List<GameObject>();
 
+    public static List<Transform> ActiveHarpoons = new List<Transform>();
 
     // UI sliders
     public Slider nFishesSlider;

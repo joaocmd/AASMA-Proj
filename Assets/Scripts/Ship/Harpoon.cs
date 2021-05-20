@@ -13,6 +13,7 @@ public class Harpoon : MonoBehaviour
     public void Start()
     {
         this.start = transform.position;
+        EnvironmentManager.ActiveHarpoons.Add(transform);
         GetComponent<Rigidbody2D>().velocity = transform.right * Speed;
     }
 
@@ -33,8 +34,8 @@ public class Harpoon : MonoBehaviour
         }
         else if (other.gameObject.tag == "Island")
         {
+            EnvironmentManager.ActiveHarpoons.Remove(transform);
             Destroy(gameObject);
         }
-
     }
 }

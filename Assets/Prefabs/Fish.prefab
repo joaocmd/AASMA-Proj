@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4740885171875324737}
   - component: {fileID: 5688127333283474894}
   - component: {fileID: 670341373735917619}
+  - component: {fileID: 7007169111279877026}
   m_Layer: 9
   m_Name: Fish
   m_TagString: Fish
@@ -206,7 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0
-  _rotation: 0
 --- !u!70 &7268955313877012583
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -253,6 +253,7 @@ MonoBehaviour:
   visionSensor: {fileID: 975449803164837274}
   visionVisualizer: {fileID: 1621191686}
   wallSensors: {fileID: 5688127333283474894}
+  harpoonSensor: {fileID: 7007169111279877026}
 --- !u!114 &5688127333283474894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bea1a710c55104ba00d7c871971a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 1
+  HitObjects: 000000000000000000000000
 --- !u!114 &670341373735917619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,3 +284,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 2132247013}
   sensors: {fileID: 4740885171875324737}
+--- !u!114 &7007169111279877026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394886173827647393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c49758134393ab4696795ebf2dc90f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tickRate: 150
+  Range: 0
