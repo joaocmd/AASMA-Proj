@@ -24,6 +24,9 @@ public class HarpoonSensor : MonoBehaviour
             SeenHarpoons.Clear();
             harpoons.ForEach(t =>
             {
+                if (t == null)
+                    return;
+
                 if (Vector2.Distance(transform.position, t.position) < Range / 2f)
                 {
                     SeenHarpoons.Add(t);

@@ -46,8 +46,8 @@ public class FishAgent : Agent, IFish
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // current direction
-        sensor.AddObservation(movement.Direction);
+        // current rotation
+        sensor.AddObservation(transform.localEulerAngles.z / 360.0f);
 
         // wall sensors
         sensor.AddObservation(wallSensors.HitPositions.Contains(WallPosition.LEFT));
@@ -57,7 +57,13 @@ public class FishAgent : Agent, IFish
         // closest ship
         Vector3? closestShip = GetClosestShip();
         sensor.AddObservation(closestShip == null);
-        sensor.AddObservation(closestShip ?? Vector3.zero);
+        float maxRange = FishSensors.Size * 2 - 0.5f;
+        float distX = 0f;
+        if (closestShip != null)
+            distX = closestShip.GetValueOrDefault().x - transform.position.x;
+        Debug.Log(distX / maxRange);
+        sensor.AddObservation((((closestShip?.x ?? 0f) - transform.position.x) / maxRange) / 2 + 0.5f);
+        sensor.AddObservation((((closestShip?.y ?? 0f) - transform.position.y) / maxRange) / 2 + 0.5f);
         AddReward(1f);
     }
 
