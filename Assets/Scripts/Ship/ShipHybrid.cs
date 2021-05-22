@@ -213,32 +213,38 @@ public class ShipHybrid : MonoBehaviour, IShip
 
     void DodgeShip()
     {
-        // Both cannot turn at the same time, otherwise they will hit each other
-
-        //TODO: sandwish case
+        // Ship between a wall on the right and a ship on the left
         if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP &&
             wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.WALL)
         {
             movement.Throttle = 0.2f;
             movement.Helm = 0;
         }
+        // Ship between a wall on the left and a ship on the right
         else if (wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.SHIP &&
             wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.WALL)
         {
             movement.Throttle = 0.2f;
             movement.Helm = 0;
         }
-        else if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP ||
-            (wallSensors.HitObjects[(int)WallPosition.MIDDLE] == ObjectClass.SHIP &&
+        // Two ships in front of each other
+        else if (wallSensors.HitObjects[(int)WallPosition.MIDDLE] == ObjectClass.SHIP &&
             wallSensors.HitObjects[(int)WallPosition.LEFT] != ObjectClass.SHIP &&
-            wallSensors.HitObjects[(int)WallPosition.RIGHT] != ObjectClass.SHIP))
+            wallSensors.HitObjects[(int)WallPosition.RIGHT] != ObjectClass.SHIP)
         {
             movement.Throttle = 0.4f;
             movement.Helm -= 0.2f;
         }
+        // A ship on the left
+        else if (wallSensors.HitObjects[(int)WallPosition.LEFT] == ObjectClass.SHIP)
+        {
+            movement.Throttle = 0.4f;
+            movement.Helm -= 0.2f;
+        }
+        // A ship on the right
         else if (wallSensors.HitObjects[(int)WallPosition.RIGHT] == ObjectClass.SHIP)
         {
-            movement.Helm = 0;
+            movement.Helm += 0.2f;
         }
     }
 
