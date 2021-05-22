@@ -10,6 +10,7 @@ public class FishAgent : Agent, IFish
     public FishSensors sensors;
     private WallSensors wallSensors;
     private ProximitySensor vision;
+    private HarpoonSensor harpoonSensor;
 
     public GameObject shipPrefab;
     public List<Transform> fishSpawns = new List<Transform>();
@@ -19,6 +20,7 @@ public class FishAgent : Agent, IFish
     {
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
+        harpoonSensor = sensors.harpoonSensor;
         EnvironmentManager.ActiveFishes.Add(gameObject);
     }
 
@@ -57,13 +59,27 @@ public class FishAgent : Agent, IFish
         // closest ship
         Vector3? closestShip = GetClosestShip();
         sensor.AddObservation(closestShip == null);
-        float maxRange = FishSensors.Size * 2 - 0.5f;
-        float distX = 0f;
+        float distX = 1f, distY = 1f;
         if (closestShip != null)
-            distX = closestShip.GetValueOrDefault().x - transform.position.x;
-        Debug.Log(distX / maxRange);
-        sensor.AddObservation((((closestShip?.x ?? 0f) - transform.position.x) / maxRange) / 2 + 0.5f);
-        sensor.AddObservation((((closestShip?.y ?? 0f) - transform.position.y) / maxRange) / 2 + 0.5f);
+        {
+            distX = ((closestShip.GetValueOrDefault().x - transform.position.x) / 26f) / 2f + 0.5f;
+            distY = ((closestShip.GetValueOrDefault().y - transform.position.y) / 26f) / 2f + 0.5f;
+        }
+        sensor.AddObservation(distX);
+        sensor.AddObservation(distY);
+
+        // closest ship
+        Vector3? closestHarpoon = GetClosestHarpoon();
+        sensor.AddObservation(closestHarpoon == null);
+        distX = 1f; distY = 1f;
+        if (closestHarpoon != null)
+        {
+            distX = ((closestHarpoon.GetValueOrDefault().x - transform.position.x) / 26f) / 2f + 0.5f;
+            distY = ((closestHarpoon.GetValueOrDefault().y - transform.position.y) / 26f) / 2f + 0.5f;
+        }
+        sensor.AddObservation(distX);
+        sensor.AddObservation(distY);
+
         AddReward(1f);
     }
 
@@ -86,6 +102,22 @@ public class FishAgent : Agent, IFish
             if (distance < minDistance)
             {
                 closest = ship;
+                minDistance = distance;
+            }
+        }
+        return closest;
+    }
+
+    Vector2? GetClosestHarpoon()
+    {
+        Vector2? closest = null;
+        float minDistance = float.MaxValue;
+        foreach (var harpoon in harpoonSensor.SeenHarpoons)
+        {
+            var distance = Vector2.Distance(harpoon.position, transform.position);
+            if (distance < minDistance)
+            {
+                closest = harpoon.position;
                 minDistance = distance;
             }
         }

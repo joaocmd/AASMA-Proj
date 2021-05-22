@@ -11447,5 +11447,13 @@ PrefabInstance:
       propertyPath: fishSpawns.Array.data[26]
       value: 
       objectReference: {fileID: 389320906}
+    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
