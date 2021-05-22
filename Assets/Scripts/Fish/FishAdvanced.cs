@@ -11,11 +11,13 @@ public class FishAdvanced : MonoBehaviour, IFish
     private HarpoonSensor harpoonSensor;
     private Vector2? closestShip;
     private RaycastHit2D? closestWall;
+    private Transform previousHarpoon;
 
     // Start is called before the first frame update
     void Start()
     {
         closestShip = null;
+        previousHarpoon = null;
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
         harpoonSensor = sensors.harpoonSensor;
@@ -157,19 +159,18 @@ public class FishAdvanced : MonoBehaviour, IFish
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
-        var angle = Vector2.SignedAngle(transform.up, distanceVector);
         var isAboveTheHarpoon = Mathf.Sign(transform.position.y - harpoon.position.y) == 1;
-
-        movement.Direction = distanceVector;
         movement.Speed = 1f;
 
-        if (isAboveTheHarpoon)
+        if (previousHarpoon != harpoon)
         {
-            movement.Rotate(-90);
+            movement.Direction = distanceVector;
+            movement.Rotate(isAboveTheHarpoon ? -90 : 90);
+            previousHarpoon = harpoon;
         }
         else
         {
-            movement.Rotate(90);
+            // continue with the same rotation
         }
     }
 
