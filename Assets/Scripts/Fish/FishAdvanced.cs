@@ -158,30 +158,19 @@ public class FishAdvanced : MonoBehaviour, IFish
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
         var angle = Vector2.SignedAngle(transform.up, distanceVector);
-        var toRotate = Mathf.Abs(90 - angle);
         var isAboveTheHarpoon = Mathf.Sign(transform.position.y - harpoon.position.y) == 1;
 
-        Debug.Log(angle);
-        Debug.Log(isAboveTheHarpoon);
-
-        if (angle < 80 && angle >= 0)
-        {
-            movement.Rotate(-toRotate + (!isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle > 110)
-        {
-            movement.Rotate(toRotate + (!isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle > -80 && angle < 0)
-        {
-            movement.Rotate(+toRotate + (isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle < -110)
-        {
-            movement.Rotate(-toRotate + (isAboveTheHarpoon ? 180f : 0f));
-        }
-
+        movement.Direction = distanceVector;
         movement.Speed = 1f;
+
+        if (isAboveTheHarpoon)
+        {
+            movement.Rotate(-90);
+        }
+        else
+        {
+            movement.Rotate(90);
+        }
     }
 
     void Explore()
