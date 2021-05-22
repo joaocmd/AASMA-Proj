@@ -18,11 +18,10 @@ public class HarpoonSensor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var harpoons = EnvironmentManager.ActiveHarpoons;
         if ((DateTime.Now - lastTick).TotalMilliseconds >= tickRate)
         {
             SeenHarpoons.Clear();
-            harpoons.ForEach(t =>
+            EnvironmentManager.ActiveHarpoons.ForEach(t =>
             {
                 if (t == null)
                     return;

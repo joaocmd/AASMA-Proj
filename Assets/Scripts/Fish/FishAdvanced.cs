@@ -11,11 +11,13 @@ public class FishAdvanced : MonoBehaviour, IFish
     private HarpoonSensor harpoonSensor;
     private Vector2? closestShip;
     private RaycastHit2D? closestWall;
+    private Transform previousHarpoon;
 
     // Start is called before the first frame update
     void Start()
     {
         closestShip = null;
+        previousHarpoon = null;
         wallSensors = sensors.wallSensors;
         vision = sensors.visionSensor;
         harpoonSensor = sensors.harpoonSensor;
@@ -33,7 +35,7 @@ public class FishAdvanced : MonoBehaviour, IFish
 
         if (closestHarpoon != null)
         {
-            Dodgeharpoon(closestHarpoon);
+            DodgeHarpoon(closestHarpoon);
             return;
         }
 
@@ -153,35 +155,23 @@ public class FishAdvanced : MonoBehaviour, IFish
 
     }
 
-    void Dodgeharpoon(Transform harpoon)
+    void DodgeHarpoon(Transform harpoon)
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
-        var angle = Vector2.SignedAngle(transform.up, distanceVector);
-        var toRotate = Mathf.Abs(90 - angle);
         var isAboveTheHarpoon = Mathf.Sign(transform.position.y - harpoon.position.y) == 1;
-
-        Debug.Log(angle);
-        Debug.Log(isAboveTheHarpoon);
-
-        if (angle < 80 && angle >= 0)
-        {
-            movement.Rotate(-toRotate + (!isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle > 110)
-        {
-            movement.Rotate(toRotate + (!isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle > -80 && angle < 0)
-        {
-            movement.Rotate(+toRotate + (isAboveTheHarpoon ? 180f : 0f));
-        }
-        else if (angle < -110)
-        {
-            movement.Rotate(-toRotate + (isAboveTheHarpoon ? 180f : 0f));
-        }
-
         movement.Speed = 1f;
+
+        if (previousHarpoon != harpoon)
+        {
+            movement.Direction = distanceVector;
+            movement.Rotate(isAboveTheHarpoon ? -90 : 90);
+            previousHarpoon = harpoon;
+        }
+        else
+        {
+            // continue with the same rotation
+        }
     }
 
     void Explore()

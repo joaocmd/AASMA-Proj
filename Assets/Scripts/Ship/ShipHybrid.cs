@@ -279,15 +279,16 @@ public class ShipHybrid : MonoBehaviour, IShip
 
     public void OnKilled(string key)
     {
-        if (intention != null && intention.Key == key)
-        {
-            TryFindWhale(true);
-        }
+        environment.NotifyKill(key);
+        OnNotifyKill(key);
     }
 
     public void OnNotifyKill(string key)
     {
-        OnKilled(key);
+        if (intention != null && intention.Key == key)
+        {
+            TryFindWhale(true);
+        }
     }
 
     public void UpdateShip(GameObject ship, Intention intention)

@@ -36,7 +36,7 @@ public class EnvironmentManager : MonoBehaviour
     public Slider shipPrefabSlider;
 
     public Toggle communicationToggle;
-    private bool hasCommunication;
+    private bool hasCommunication = true;
 
 
     public Text elapsedTimeText;
