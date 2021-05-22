@@ -21,6 +21,7 @@ public class Harpoon : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, start) >= Range - 1f)
         {
+            EnvironmentManager.ActiveHarpoons.Remove(transform);
             Destroy(gameObject);
         }
     }
