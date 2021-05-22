@@ -33,7 +33,7 @@ public class FishAdvanced : MonoBehaviour, IFish
 
         if (closestHarpoon != null)
         {
-            Dodgeharpoon(closestHarpoon);
+            DodgeHarpoon(closestHarpoon);
             return;
         }
 
@@ -153,7 +153,7 @@ public class FishAdvanced : MonoBehaviour, IFish
 
     }
 
-    void Dodgeharpoon(Transform harpoon)
+    void DodgeHarpoon(Transform harpoon)
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
