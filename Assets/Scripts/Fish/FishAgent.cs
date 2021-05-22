@@ -114,6 +114,9 @@ public class FishAgent : Agent, IFish
         float minDistance = float.MaxValue;
         foreach (var harpoon in harpoonSensor.SeenHarpoons)
         {
+            if (harpoon == null)
+                continue;
+
             var distance = Vector2.Distance(harpoon.position, transform.position);
             if (distance < minDistance)
             {
