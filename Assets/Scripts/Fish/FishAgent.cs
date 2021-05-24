@@ -11,6 +11,7 @@ public class FishAgent : Agent, IFish
     private WallSensors wallSensors;
     private ProximitySensor vision;
     private HarpoonSensor harpoonSensor;
+    public int maxShips = 4;
 
     public GameObject shipPrefab;
     public List<Transform> fishSpawns = new List<Transform>();
@@ -26,7 +27,7 @@ public class FishAgent : Agent, IFish
 
     public override void OnEpisodeBegin()
     {
-        int nrShips = Random.Range(1, 4);
+        int nrShips = Random.Range(1, maxShips);
         foreach (var ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
             Destroy(ship);
