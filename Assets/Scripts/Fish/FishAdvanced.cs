@@ -93,7 +93,8 @@ public class FishAdvanced : MonoBehaviour, IFish
         float minDistance = float.MaxValue;
         foreach (var harpoon in harpoonSensor.SeenHarpoons)
         {
-            if (harpoon == null) {
+            if (harpoon == null)
+            {
                 continue;
             }
             var distance = Vector2.Distance(harpoon.position, transform.position);
@@ -167,7 +168,7 @@ public class FishAdvanced : MonoBehaviour, IFish
 
         if (previousHarpoon != harpoon)
         {
-            movement.Direction = distanceVector;
+            movement.Direction = harpoon.right.normalized;
             movement.Rotate(Mathf.Sign(angle) * 90);
             previousHarpoon = harpoon;
         }

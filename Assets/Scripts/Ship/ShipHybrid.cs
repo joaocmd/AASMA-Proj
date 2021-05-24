@@ -258,7 +258,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         if (intention.Desire == Desire.follow && distanceVector.magnitude < 3 && angle < 90)
         {
             // slow down when we're closer
-            movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.75f);
+            movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.5f);
             Debug.Log(movement.Throttle);
         }
 
