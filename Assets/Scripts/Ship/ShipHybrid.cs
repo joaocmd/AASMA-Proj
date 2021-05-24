@@ -255,6 +255,13 @@ public class ShipHybrid : MonoBehaviour, IShip
         var distanceVector = goal - myPosition;
         var angle = Vector2.SignedAngle(transform.up, distanceVector);
 
+        if (intention.Desire == Desire.follow && distanceVector.magnitude < 3 && angle < 90)
+        {
+            // slow down when we're closer
+            movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.75f);
+            Debug.Log(movement.Throttle);
+        }
+
         if (Mathf.Abs(angle) < 3f)
         {
             movement.Helm = 0f;

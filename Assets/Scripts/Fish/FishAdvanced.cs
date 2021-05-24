@@ -91,12 +91,15 @@ public class FishAdvanced : MonoBehaviour, IFish
     {
         Transform closest = null;
         float minDistance = float.MaxValue;
-        foreach (var hit in harpoonSensor.SeenHarpoons)
+        foreach (var harpoon in harpoonSensor.SeenHarpoons)
         {
-            var distance = Vector2.Distance(hit.position, transform.position);
+            if (harpoon == null) {
+                continue;
+            }
+            var distance = Vector2.Distance(harpoon.position, transform.position);
             if (distance < minDistance)
             {
-                closest = hit;
+                closest = harpoon;
                 minDistance = distance;
             }
         }
@@ -138,13 +141,13 @@ public class FishAdvanced : MonoBehaviour, IFish
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - hit).normalized;
-        var angle = Vector2.Angle(transform.up, distanceVector);
+        var angle = Vector2.SignedAngle(transform.up, distanceVector);
 
         if (closestWall == null)
         {
             movement.Direction = distanceVector;
         }
-        else if (angle > 150)
+        else if (Mathf.Abs(angle) > 150)
         {
             movement.Rotate(Mathf.Sign(angle) * 180f);
         }
@@ -159,13 +162,13 @@ public class FishAdvanced : MonoBehaviour, IFish
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         var distanceVector = (position - new Vector2(harpoon.position.x, harpoon.position.y)).normalized;
-        var isAboveTheHarpoon = Mathf.Sign(transform.position.y - harpoon.position.y) == 1;
+        var angle = Vector2.SignedAngle(harpoon.right, distanceVector);
         movement.Speed = 1f;
 
         if (previousHarpoon != harpoon)
         {
             movement.Direction = distanceVector;
-            movement.Rotate(isAboveTheHarpoon ? -90 : 90);
+            movement.Rotate(Mathf.Sign(angle) * 90);
             previousHarpoon = harpoon;
         }
         else
