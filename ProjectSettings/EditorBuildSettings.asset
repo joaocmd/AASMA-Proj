@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DefaultScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/FishTrapScene.unity
+    guid: 86f73b9efb30fca42ae5713ede429f00
+  - enabled: 1
+    path: Assets/Scenes/FishCornerScene.unity
+    guid: ba0445da6001d464ca2e50a28efbbe31
+  - enabled: 1
+    path: Assets/Scenes/CoordinationScene.unity
+    guid: caf6b45791b12374d98b9ffc459247cb
+  - enabled: 1
+    path: Assets/Scenes/ShipCollision.unity
+    guid: d0df542f0f5286243b8743bffed0456d
+  - enabled: 1
+    path: Assets/Scenes/FishHarpoonAvoidance.unity
+    guid: 613975b6180da44408aa950a138eb20d
   m_configObjects: {}
