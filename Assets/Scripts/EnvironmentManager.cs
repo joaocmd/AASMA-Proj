@@ -43,6 +43,7 @@ public class EnvironmentManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1.5f;
         communicationToggle.onValueChanged.AddListener(ToggleCommunication);
         UpdateValues();
         if (!training)
@@ -79,7 +80,7 @@ public class EnvironmentManager : MonoBehaviour
         ResetOne((int)nShipsSlider.value, shipPrefabs[(int)shipPrefabSlider.value], shipSpawns, ActiveShips);
         ResetOne((int)nFishesSlider.value, fishPrefabs[(int)fishPrefabSlider.value], fishSpawns, ActiveFishes, true);
         elapsedTime = 0;
-        Time.timeScale = 1;
+        Time.timeScale = 1.5f;
     }
 
     void ResetOne(int nObjects, GameObject prefab, List<Transform> spawns, List<GameObject> active, bool isFish = false)

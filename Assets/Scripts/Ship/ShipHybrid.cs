@@ -206,7 +206,12 @@ public class ShipHybrid : MonoBehaviour, IShip
 
         var hitVector = hit.point - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
-        movement.Throttle = 0.6f;
+        if (wallSensors.HitPositions.Count >= 2
+            || wallSensors.HitPositions.Contains(WallPosition.MIDDLE))
+        {
+            movement.Throttle = 0.6f;
+        }
+
 
         movement.Helm = Mathf.Sign(angle) * -0.9f;
     }
@@ -258,7 +263,7 @@ public class ShipHybrid : MonoBehaviour, IShip
         if (intention.Desire == Desire.follow && distanceVector.magnitude < 3 && angle < 90)
         {
             // slow down when we're closer
-            movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.5f);
+            movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.25f);
             Debug.Log(movement.Throttle);
         }
 

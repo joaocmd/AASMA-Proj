@@ -73,7 +73,11 @@ public class Ship : MonoBehaviour, IShip
 
         var hitVector = hit.point - position;
         var angle = Vector2.SignedAngle(transform.up, hitVector);
-        movement.Throttle = 0.6f;
+        if (wallSensors.HitPositions.Count >= 2
+            || wallSensors.HitPositions.Contains(WallPosition.MIDDLE))
+        {
+            movement.Throttle = 0.6f;
+        }
 
         movement.Helm = Mathf.Sign(angle) * -0.9f;
     }
