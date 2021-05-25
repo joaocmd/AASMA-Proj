@@ -29,17 +29,26 @@ We recommend running the project on Unity. After opening the project, to run in,
 
 On Unity it is also possible to train the whale's agents using TensorFlow, to do so you need to do the following steps:
 
-1. Create a virtual environment:
-> python3 -m venv /path/to/new/virtual/environment
+1. Create a virtual environment: 
+        
+        python3 -m venv /path/to/new/virtual/environment
+
 2. Activate the environment:
-> source venv/bin/activate
+
+        source venv/bin/activate
+
 3. Install the pip requirements:
-> pip install -r requirements.txt
+
+        pip install -r requirements.txt
+
 4. To run the script to train the agents:
-> mlagents-learn config/trainer_config.yaml --run-id=FishTrain --resume 
-5. Click the play button on Unity to start training
+
+        mlagents-learn config/trainer_config.yaml --run-id=FishTrain --resume 
+
+5. Select the Fish Train scene and click the play button on Unity to start training
 6. To observe the results:
-> tensorboard --logdir=summaries
+        
+        tensorboard --logdir=summaries
 
 To deactive the virtual environment, you can use the command ```deactivate```. 
 
