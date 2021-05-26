@@ -23,7 +23,9 @@ Or you can just open the ```assets/scripts/``` folder on your preferred IDE.
 
 ### 2.2 Running the Project on Unity
 
-We recommend running the project on Unity. After opening the project, to run in, you only need to press the play button on top of the window. In the **Game tab** you can see the project run like in the executables, with no debug information. If you open the **Scene tab** you can observe the wall sensors represented by red rays, and the vision sensor is represented by green rays.
+We recommend running the project on Unity. After opening the project, to run in, you only need to press the play button on top of the window.
+In the **Game tab** you can see the project run like in the executables, with no debug information. If you open the **Scene tab** you can observe the wall sensors represented by red rays, and the vision sensor is represented by green rays.
+Running the environment directly in unity also enables us to modify the environment, such as changing the islands' positions.
 
 ![scene view](/Demo/scene_view.png)
 
@@ -45,12 +47,13 @@ On Unity it is also possible to train the whale's agents using TensorFlow, to do
 
         mlagents-learn config/trainer_config.yaml --run-id=FishTrain --resume 
 
-5. Select the Fish Train scene and click the play button on Unity to start training
+5. Select the `scenes/FishTrain` scene and click the play button on Unity to start training
 6. To observe the results:
         
         tensorboard --logdir=summaries
 
-To deactive the virtual environment, you can use the command ```deactivate```. 
+To deactive the virtual environment, you can use the command ```deactivate```, or simply exit the shell running in the virtual environment. 
+Due to the issues with the ML Agents mentioned in the report, the benchmark for the side scene was done in a different scene, which is on `scenes/FishTrapSceneML` and, like with the `FishTrain` scene, is not possible to run through the executable.
 
 ### 2.3 Opening Built Project
 
@@ -61,6 +64,8 @@ The build files for the project are located in the ```/Build``` directory, where
 * [Mac OS](/Builds/AASMA_MacOS_Intel_M1.app) (optimized for both Intel and Apple Silicon in ```/Build/AASMA_MacOS_Intel_M1.app```)
 
 The app does not provide a close button, so you need to force close it yourself:
-
 * In Windows and Linux ```alt+F4```
 * In Mac OS ```cmd+Q```
+
+The executable was tested with a 16:9 aspect ratio screen. Depending on the aspect
+ratio, the GUI might be poorly placed, so, if possible, try to run it with that aspect ratio.
