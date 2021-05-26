@@ -58,11 +58,11 @@ Due to the issues with the ML Agents mentioned in the report, the benchmark for 
 
 ### 2.3 Opening Built Project
 
-The build files for the project are located in the ```/Build``` directory, where you can find the executables for the following platforms:
+The build files for the project are available in the [releases section](https://github.com/joaocmd/AASMA-Proj/releases) of this repository, where you can find .zip files containing the executables for the following platforms:
 
-* [Windows](/Builds/AASMA_Win_x86_x64.exe) (both x86 and x64 in ```/Builds/AASMA_Win_x86_x64.exe```)
-* [Linux](/Builds/AASMA_Linux_x86_x64) (both x86 and x64 in ```/Builds/AASMA_Linux_x86_x64```)
-* [Mac OS](/Builds/AASMA_MacOS_Intel_M1.app) (optimized for both Intel and Apple Silicon in ```/Build/AASMA_MacOS_Intel_M1.app```)
+* [Windows](https://github.com/joaocmd/AASMA-Proj/releases/download/v1.0.0/Win_x86_x64.zip) (both x86 and x64)
+* [Linux](https://github.com/joaocmd/AASMA-Proj/releases/download/v1.0.0/Linux_x86_x64.zip) (both x86 and x64)
+* [Mac OS](https://github.com/joaocmd/AASMA-Proj/releases/download/v1.0.0/MacOS_intel_apple_silicon.zip) (optimized for both Intel and Apple Silicon)
 
 The app does not provide a close button, so you need to force close it yourself:
 * In Windows and Linux ```alt+F4```
