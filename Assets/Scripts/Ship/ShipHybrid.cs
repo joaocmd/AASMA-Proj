@@ -264,7 +264,6 @@ public class ShipHybrid : MonoBehaviour, IShip
         {
             // slow down when we're closer
             movement.Throttle = 1 - 1 / Mathf.Exp(distanceVector.magnitude - 0.25f);
-            Debug.Log(movement.Throttle);
         }
 
         if (Mathf.Abs(angle) < 3f)

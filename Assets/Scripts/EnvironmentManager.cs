@@ -8,7 +8,7 @@ public class EnvironmentManager : MonoBehaviour
     public bool randomRotation = true;
     public bool training = false;
 
-    public float elapsedTime = 0f;
+    public static float elapsedTime = 0f;
 
     public GameObject[] shipPrefabs;
     public List<Transform> shipSpawns;
@@ -43,7 +43,6 @@ public class EnvironmentManager : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1.5f;
         communicationToggle.onValueChanged.AddListener(ToggleCommunication);
         UpdateValues();
         if (!training)
@@ -80,7 +79,7 @@ public class EnvironmentManager : MonoBehaviour
         ResetOne((int)nShipsSlider.value, shipPrefabs[(int)shipPrefabSlider.value], shipSpawns, ActiveShips);
         ResetOne((int)nFishesSlider.value, fishPrefabs[(int)fishPrefabSlider.value], fishSpawns, ActiveFishes, true);
         elapsedTime = 0;
-        Time.timeScale = 1.5f;
+        Time.timeScale = 1f;
     }
 
     void ResetOne(int nObjects, GameObject prefab, List<Transform> spawns, List<GameObject> active, bool isFish = false)

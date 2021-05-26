@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1155458160}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 2
+  m_MaxValue: 1
   m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
@@ -2820,7 +2820,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 699843729}
         m_TargetAssemblyTypeName: EnvironmentManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 3
@@ -3417,7 +3417,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomRotation: 1
   training: 0
-  elapsedTime: 0
   shipPrefabs:
   - {fileID: 1554522285546641033, guid: 13a324f608951f8438fe4aaa31869143, type: 3}
   - {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}

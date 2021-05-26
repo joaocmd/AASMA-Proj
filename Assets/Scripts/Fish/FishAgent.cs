@@ -27,6 +27,7 @@ public class FishAgent : Agent, IFish
 
     public override void OnEpisodeBegin()
     {
+        EnvironmentManager.elapsedTime = 0;
         int nrShips = Random.Range(1, maxShips);
         foreach (var ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
@@ -65,6 +66,7 @@ public class FishAgent : Agent, IFish
         {
             distX = ((closestShip.GetValueOrDefault().x - transform.position.x) / 26f) / 2f + 0.5f;
             distY = ((closestShip.GetValueOrDefault().y - transform.position.y) / 26f) / 2f + 0.5f;
+            AddReward(-0.0005f);
         }
         sensor.AddObservation(distX);
         sensor.AddObservation(distY);
@@ -81,7 +83,7 @@ public class FishAgent : Agent, IFish
         sensor.AddObservation(distX);
         sensor.AddObservation(distY);
 
-        AddReward(1f);
+        AddReward(0.0005f);
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -148,12 +150,12 @@ public class FishAgent : Agent, IFish
 
     void OnCollisionStay2D(Collision2D other)
     {
-        SetReward(-5);
+        AddReward(-0.0005f);
     }
 
     public void Kill()
     {
-        SetReward(-1000);
+        SetReward(-1);
         EndEpisode();
     }
 }

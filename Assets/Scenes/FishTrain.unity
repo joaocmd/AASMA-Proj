@@ -314,71 +314,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59051163}
   m_CullTransparentMesh: 1
---- !u!1001 &82174101
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2394886173827647393, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_Name
-      value: FishAgent
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647393, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.050055
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.909556
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2394886173827647395, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452821032712591120, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 10
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7edf38459b4af8e4a89f4f6a05140d4b, type: 3}
 --- !u!1 &83925804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,7 +2761,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomRotation: 1
   training: 1
-  elapsedTime: 0
   shipPrefabs:
   - {fileID: 1554522285546641033, guid: 13a324f608951f8438fe4aaa31869143, type: 3}
   - {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}
@@ -2865,7 +2799,7 @@ Transform:
   - {fileID: 1440435709}
   - {fileID: 293656431}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &657773286
 GameObject:
@@ -7567,10 +7501,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 961223763}
   m_HandleRect: {fileID: 1921239370}
   m_Direction: 0
-  m_MinValue: 2
-  m_MaxValue: 15
+  m_MinValue: 40
+  m_MaxValue: 40
   m_WholeNumbers: 0
-  m_Value: 15
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -10599,22 +10533,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: MaxStep
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: maxShips
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: shipSpawns.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
       propertyPath: fishSpawns.Array.data[0]
       value: 
       objectReference: {fileID: 868509569}
@@ -10631,30 +10549,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1066170319}
     - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[5]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[6]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[7]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[8]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[9]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
       propertyPath: shipSpawns.Array.data[0]
       value: 
       objectReference: {fileID: 179672897}
@@ -10670,85 +10564,5 @@ PrefabInstance:
       propertyPath: shipSpawns.Array.data[3]
       value: 
       objectReference: {fileID: 58125205}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[10]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[11]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[12]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[13]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[14]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[15]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[16]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[17]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[18]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[19]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[20]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[21]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[22]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[23]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[24]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[25]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5387011751072617073, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: fishSpawns.Array.data[26]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_InferenceDevice
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452821032712591120, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}
-      propertyPath: m_BrainParameters.NumStackedVectorObservations
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a222ec8aac8044daf6c87326f37aa6, type: 3}

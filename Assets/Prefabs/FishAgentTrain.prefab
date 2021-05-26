@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 10
+    NumStackedVectorObservations: 3
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
@@ -311,9 +311,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 100
+  MaxStep: 3000
   movement: {fileID: 2132247013}
   sensors: {fileID: 4740885171875324737}
+  maxShips: 2
   shipPrefab: {fileID: 1554522285546641033, guid: cb2d3ab1ab9d4a74abaf6d6f8fb582ff, type: 3}
   fishSpawns:
   - {fileID: 0}
@@ -321,29 +322,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   shipSpawns:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -374,5 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c49758134393ab4696795ebf2dc90f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SeenHarpoons: []
   tickRate: 150
   Range: 0
