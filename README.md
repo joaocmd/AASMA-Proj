@@ -23,7 +23,8 @@ Or you can just open the ```assets/scripts/``` folder on your preferred IDE.
 
 ### 2.2 Running the Project on Unity
 
-We recommend running the project on Unity. After opening the project, to run in, you only need to press the play button on top of the window.
+We recommend running the project on Unity. After opening the project, to run in, you need to open a scene ```Project Window -> Assets -> Scenes -> Select a scene (double click)```, then you only need to press the play button on top of the window.
+
 In the **Game tab** you can see the project run like in the executables, with no debug information. If you open the **Scene tab** you can observe the wall sensors represented by red rays, and the vision sensor is represented by green rays.
 Running the environment directly in unity also enables us to modify the environment, such as changing the islands' positions.
 
